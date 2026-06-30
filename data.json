@@ -1,5 +1,5 @@
 {
-  "updateTime": "2026-06-30T04:36:54.215Z",
+  "updateTime": "2026-06-30T05:54:41.280Z",
   "teams": {
     "同方知网": {
       "name": "同方知网",
@@ -197,15 +197,15 @@
     },
     {
       "home": "天下无敌",
-      "away": "安那络",
-      "homeScore": 3,
-      "awayScore": 3
-    },
-    {
-      "home": "天下无敌",
       "away": "启行昆仑",
       "homeScore": 2,
       "awayScore": 8
+    },
+    {
+      "home": "天下无敌",
+      "away": "安那络",
+      "homeScore": 3,
+      "awayScore": 3
     },
     {
       "home": "安那络",
