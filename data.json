@@ -1,126 +1,126 @@
 {
-  "updateTime": "2026-06-30T04:32:24.491Z",
+  "updateTime": "2026-06-30T04:36:54.215Z",
   "teams": {
     "同方知网": {
       "name": "同方知网",
       "group": "A",
-      "played": 2,
-      "won": 2,
+      "played": 3,
+      "won": 1,
       "drawn": 0,
-      "lost": 0,
-      "goalsFor": 12,
-      "goalsAgainst": 0,
-      "points": 6
+      "lost": 2,
+      "goalsFor": 4,
+      "goalsAgainst": 6,
+      "points": 3
     },
     "东升博展": {
       "name": "东升博展",
       "group": "A",
-      "played": 0,
-      "won": 0,
+      "played": 2,
+      "won": 1,
       "drawn": 0,
-      "lost": 0,
-      "goalsFor": 0,
-      "goalsAgainst": 0,
-      "points": 0
+      "lost": 1,
+      "goalsFor": 3,
+      "goalsAgainst": 2,
+      "points": 3
     },
     "派出所": {
       "name": "派出所",
       "group": "A",
-      "played": 0,
+      "played": 3,
       "won": 0,
       "drawn": 0,
-      "lost": 0,
-      "goalsFor": 0,
-      "goalsAgainst": 0,
+      "lost": 3,
+      "goalsFor": 2,
+      "goalsAgainst": 11,
       "points": 0
     },
     "智芯公司": {
       "name": "智芯公司",
       "group": "A",
-      "played": 1,
-      "won": 0,
-      "drawn": 0,
-      "lost": 1,
-      "goalsFor": 0,
-      "goalsAgainst": 4,
-      "points": 0
+      "played": 3,
+      "won": 2,
+      "drawn": 1,
+      "lost": 0,
+      "goalsFor": 7,
+      "goalsAgainst": 3,
+      "points": 7
     },
     "二十集团": {
       "name": "二十集团",
       "group": "A",
-      "played": 1,
-      "won": 0,
+      "played": 3,
+      "won": 2,
       "drawn": 0,
       "lost": 1,
-      "goalsFor": 0,
-      "goalsAgainst": 8,
-      "points": 0
+      "goalsFor": 6,
+      "goalsAgainst": 3,
+      "points": 6
     },
     "绺脚石FC": {
       "name": "绺脚石FC",
       "group": "A",
-      "played": 0,
-      "won": 0,
-      "drawn": 0,
+      "played": 2,
+      "won": 1,
+      "drawn": 1,
       "lost": 0,
-      "goalsFor": 0,
-      "goalsAgainst": 0,
-      "points": 0
+      "goalsFor": 5,
+      "goalsAgainst": 2,
+      "points": 4
     },
     "鼎震八方": {
       "name": "鼎震八方",
       "group": "B",
-      "played": 0,
+      "played": 1,
       "won": 0,
       "drawn": 0,
-      "lost": 0,
-      "goalsFor": 0,
-      "goalsAgainst": 0,
+      "lost": 1,
+      "goalsFor": 1,
+      "goalsAgainst": 3,
       "points": 0
     },
     "天下无敌": {
       "name": "天下无敌",
       "group": "B",
-      "played": 0,
+      "played": 2,
       "won": 0,
-      "drawn": 0,
-      "lost": 0,
-      "goalsFor": 0,
-      "goalsAgainst": 0,
-      "points": 0
+      "drawn": 1,
+      "lost": 1,
+      "goalsFor": 5,
+      "goalsAgainst": 11,
+      "points": 1
     },
     "安那络": {
       "name": "安那络",
       "group": "B",
-      "played": 0,
+      "played": 2,
       "won": 0,
-      "drawn": 0,
+      "drawn": 2,
       "lost": 0,
-      "goalsFor": 0,
-      "goalsAgainst": 0,
-      "points": 0
+      "goalsFor": 5,
+      "goalsAgainst": 5,
+      "points": 2
     },
     "中国银行": {
       "name": "中国银行",
       "group": "B",
-      "played": 0,
+      "played": 1,
       "won": 0,
-      "drawn": 0,
+      "drawn": 1,
       "lost": 0,
-      "goalsFor": 0,
-      "goalsAgainst": 0,
-      "points": 0
+      "goalsFor": 2,
+      "goalsAgainst": 2,
+      "points": 1
     },
     "启行昆仑": {
       "name": "启行昆仑",
       "group": "B",
-      "played": 0,
-      "won": 0,
+      "played": 2,
+      "won": 2,
       "drawn": 0,
       "lost": 0,
-      "goalsFor": 0,
-      "goalsAgainst": 0,
-      "points": 0
+      "goalsFor": 11,
+      "goalsAgainst": 3,
+      "points": 6
     }
   },
   "groupA": [
@@ -142,15 +142,76 @@
     {
       "home": "同方知网",
       "away": "智芯公司",
-      "homeScore": 4,
-      "awayScore": 0
+      "homeScore": 0,
+      "awayScore": 1
     },
     {
       "home": "同方知网",
       "away": "二十集团",
-      "homeScore": 8,
+      "homeScore": 3,
+      "awayScore": 1
+    },
+    {
+      "home": "同方知网",
+      "away": "绺脚石FC",
+      "homeScore": 1,
+      "awayScore": 4
+    },
+    {
+      "home": "东升博展",
+      "away": "派出所",
+      "homeScore": 3,
       "awayScore": 0
+    },
+    {
+      "home": "东升博展",
+      "away": "二十集团",
+      "homeScore": 0,
+      "awayScore": 2
+    },
+    {
+      "home": "派出所",
+      "away": "智芯公司",
+      "homeScore": 2,
+      "awayScore": 5
+    },
+    {
+      "home": "派出所",
+      "away": "二十集团",
+      "homeScore": 0,
+      "awayScore": 3
+    },
+    {
+      "home": "智芯公司",
+      "away": "绺脚石FC",
+      "homeScore": 1,
+      "awayScore": 1
     }
   ],
-  "matchesB": []
+  "matchesB": [
+    {
+      "home": "鼎震八方",
+      "away": "启行昆仑",
+      "homeScore": 1,
+      "awayScore": 3
+    },
+    {
+      "home": "天下无敌",
+      "away": "安那络",
+      "homeScore": 3,
+      "awayScore": 3
+    },
+    {
+      "home": "天下无敌",
+      "away": "启行昆仑",
+      "homeScore": 2,
+      "awayScore": 8
+    },
+    {
+      "home": "安那络",
+      "away": "中国银行",
+      "homeScore": 2,
+      "awayScore": 2
+    }
+  ]
 }
