@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>足球积分榜 - 数据录入</title>
+    <style>
+        body {
+            font-family: Arial;
+            max-width: 900px;
+            margin: 20px auto;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h2 { color: #333; margin-top: 0; }
+        .input-section {
+            margin-bottom: 20px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 5px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+            font-size: 14px;
+        }
+        input {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        button:hover { background: #45a049; }
+        .danger { background: #f44336; }
+        .danger:hover { background: #da190b; }
+        .info { background: #2196F3; }
+        .info:hover { background: #0b7dda; }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+            background: white;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th { background-color: #4CAF50; color: white; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        .export-section {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e8f5e9;
+            border-radius: 5px;
+        }
+        .link-section {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff3e0;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .link-section a {
+            color: #ff6f00;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .link-section a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>⚽ 足球比赛积分榜 - 数据录入</h2>
+
+        <div class="input-section">
+            <h3>录入比赛结果</h3>
+            <input id="homeTeam" placeholder="主队名称" />
+            <input id="homeScore" type="number" placeholder="主队得分" min="0" />
+            <span>vs</span>
+            <input id="awayScore" type="number" placeholder="客队得分" min="0" />
+            <input id="awayTeam" placeholder="客队名称" />
+            <button onclick="addMatch()">✅ 提交</button>
+            <button class="danger" onclick="reset()">🗑️ 清空所有数据</button>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>排名</th>
+                    <th>球队</th>
+                    <th>赛</th>
+                    <th>胜</th>
+                    <th>平</th>
+                    <th>负</th>
+                    <th>进球</th>
+                    <th>失球</th>
+                    <th>净胜球</th>
+                    <th>积分</th>
+                </tr>
+            </thead>
+            <tbody id="standings"></tbody>
+        </table>
+
+        <div class="export-section">
+            <button class="info" onclick="exportData()">📥 导出数据</button>
+            <button class="info" onclick="document.getElementById('importFile').click()">📤 导入数据</button>
+            <input type="file" id="importFile" style="display:none" onchange="importData(event)" accept=".json" />
+        </div>
+
+        <div class="link-section">
+            <a href="standings-display.html" target="_blank">🖥️ 打开展示页面（可投屏到大屏）</a>
+        </div>
+    </div>
+
+    <script>
+        let teams = {};
+
+        window.onload = function() {
+            loadData();
+            updateTable();
+        };
+
+        function loadData() {
+            const saved = localStorage.getItem('footballStandings');
+            if (saved) {
+                teams = JSON.parse(saved);
+            }
+        }
+
+        function saveData() {
+            localStorage.setItem('footballStandings', JSON.stringify(teams));
+        }
+
+        function getTeam(name) {
+            if (!teams[name]) {
+                teams[name] = {
+                    name: name,
+                    played: 0,
+                    won: 0,
+                    drawn: 0,
+                    lost: 0,
+                    goalsFor: 0,
+                    goalsAgainst: 0,
+                    points: 0
+                };
+            }
+            return teams[name];
+        }
+
+        function addMatch() {
+            const homeTeam = document.getElementById('homeTeam').value.trim();
+            const awayTeam = document.getElementById('awayTeam').value.trim();
+            const homeScore = parseInt(document.getElementById('homeScore').value);
+            const awayScore = parseInt(document.getElementById('awayScore').value);
+
+            if (!homeTeam || !awayTeam || isNaN(homeScore) || isNaN(awayScore)) {
+                alert('请填写完整信息');
+                return;
+            }
+
+            if (homeTeam === awayTeam) {
+                alert('主队和客队不能相同');
+                return;
+            }
+
+            const home = getTeam(homeTeam);
+            const away = getTeam(awayTeam);
+
+            home.played++;
+            away.played++;
+            home.goalsFor += homeScore;
+            home.goalsAgainst += awayScore;
+            away.goalsFor += awayScore;
+            away.goalsAgainst += homeScore;
+
+            if (homeScore > awayScore) {
+                home.won++;
+                home.points += 3;
+                away.lost++;
+            } else if (homeScore < awayScore) {
+                away.won++;
+                away.points += 3;
+                home.lost++;
+            } else {
+                home.drawn++;
+                away.drawn++;
+                home.points += 1;
+                away.points += 1;
+            }
+
+            saveData();
+            updateTable();
+
+            document.getElementById('homeTeam').value = '';
+            document.getElementById('awayTeam').value = '';
+            document.getElementById('homeScore').value = '';
+            document.getElementById('awayScore').value = '';
+
+            document.getElementById('homeTeam').focus();
+        }
+
+        function updateTable() {
+            const tbody = document.getElementById('standings');
+
+            const sorted = Object.values(teams).sort((a, b) => {
+                if (b.points !== a.points) return b.points - a.points;
+                const diffA = a.goalsFor - a.goalsAgainst;
+                const diffB = b.goalsFor - b.goalsAgainst;
+                if (diffB !== diffA) return diffB - diffA;
+                return b.goalsFor - a.goalsFor;
+            });
+
+            tbody.innerHTML = sorted.map((team, index) => {
+                const goalDiff = team.goalsFor - team.goalsAgainst;
+                return `
+                    <tr>
+                        <td><b>${index + 1}</b></td>
+                        <td>${team.name}</td>
+                        <td>${team.played}</td>
+                        <td>${team.won}</td>
+                        <td>${team.drawn}</td>
+                        <td>${team.lost}</td>
+                        <td>${team.goalsFor}</td>
+                        <td>${team.goalsAgainst}</td>
+                        <td>${goalDiff > 0 ? '+' : ''}${goalDiff}</td>
+                        <td><b>${team.points}</b></td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function reset() {
+            if (confirm('确定要清空所有数据吗？此操作不可恢复！')) {
+                teams = {};
+                localStorage.removeItem('footballStandings');
+                updateTable();
+            }
+        }
+
+        function exportData() {
+            const dataStr = JSON.stringify(teams, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'standings_' + new Date().toISOString().split('T')[0] + '.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function importData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    teams = JSON.parse(e.target.result);
+                    saveData();
+                    updateTable();
+                    alert('数据导入成功！');
+                } catch (error) {
+                    alert('导入失败：文件格式错误');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') addMatch();
+        });
+    </script>
+</body>
+</html>
