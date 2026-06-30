@@ -303,7 +303,25 @@
         let matchesA = [];
         let matchesB = [];
 
-        function loadData() {
+        async function loadData() {
+            // 优先从 data.json 加载（GitHub Pages 模式）
+            try {
+                const response = await fetch('data.json');
+                if (response.ok) {
+                    const data = await response.json();
+                    teams = data.teams || {};
+                    groupA = data.groupA || [];
+                    groupB = data.groupB || [];
+                    matchesA = data.matchesA || [];
+                    matchesB = data.matchesB || [];
+                    console.log('从 data.json 加载数据成功');
+                    return Object.keys(teams).length > 0;
+                }
+            } catch (e) {
+                console.log('data.json 不存在，尝试从 localStorage 加载');
+            }
+
+            // 降级到 localStorage（本地预览模式）
             const saved = localStorage.getItem('footballStandings');
             if (saved) {
                 teams = JSON.parse(saved);
@@ -407,8 +425,8 @@
             }).join('');
         }
 
-        function updateTable() {
-            loadData();
+        async function updateTable() {
+            await loadData();
 
             // 更新总榜
             const allTeams = Object.values(teams);
@@ -432,8 +450,8 @@
         // 页面加载时更新
         updateTable();
 
-        // 每3秒自动刷新
-        setInterval(updateTable, 3000);
+        // 每30秒自动刷新（从 data.json 重新加载）
+        setInterval(updateTable, 30000);
 
         // 监听 localStorage 变化
         window.addEventListener('storage', function(e) {
