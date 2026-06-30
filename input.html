@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>足球积分榜 - 数据录入</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, "Microsoft YaHei";
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .group-section {
+            margin-bottom: 40px;
+        }
+        .group-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #4CAF50;
+            color: white;
+            border-radius: 5px;
+        }
+        .group-title.group-b {
+            background: #2196F3;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+            font-size: 14px;
+        }
+        th {
+            background: #f0f0f0;
+            font-weight: bold;
+        }
+        .team-name {
+            background: #fafafa;
+            font-weight: bold;
+            min-width: 100px;
+        }
+        input.score-input {
+            width: 60px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .disabled-cell {
+            background: #e0e0e0;
+        }
+        .stats-col {
+            background: #fff3e0;
+            font-weight: bold;
+        }
+        .buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        button {
+            padding: 12px 30px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn-calc {
+            background: #4CAF50;
+            color: white;
+        }
+        .btn-calc:hover {
+            background: #45a049;
+        }
+        .btn-view {
+            background: #2196F3;
+            color: white;
+        }
+        .btn-view:hover {
+            background: #0b7dda;
+        }
+        .btn-clear {
+            background: #f44336;
+            color: white;
+        }
+        .btn-clear:hover {
+            background: #da190b;
+        }
+        .instruction {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            color: #1976d2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚽ 足球积分榜 - 矩阵录入</h1>
+
+        <div class="instruction">
+            💡 <strong>使用说明：</strong>在交叉格中输入比赛结果，格式如"3比0"或"1比1"，表示行队伍 vs 列队伍的比分。填完后点击"计算积分"。
+        </div>
+
+        <!-- A组 -->
+        <div class="group-section">
+            <div class="group-title">🅰️ A组（6支队伍）</div>
+            <table id="tableA">
+                <thead>
+                    <tr>
+                        <th class="team-name">A组</th>
+                        <th id="a-col-0"></th>
+                        <th id="a-col-1"></th>
+                        <th id="a-col-2"></th>
+                        <th id="a-col-3"></th>
+                        <th id="a-col-4"></th>
+                        <th id="a-col-5"></th>
+                        <th class="stats-col">积分</th>
+                        <th class="stats-col">净胜球</th>
+                    </tr>
+                </thead>
+                <tbody id="bodyA"></tbody>
+            </table>
+        </div>
+
+        <!-- B组 -->
+        <div class="group-section">
+            <div class="group-title group-b">🅱️ B组（5支队伍）</div>
+            <table id="tableB">
+                <thead>
+                    <tr>
+                        <th class="team-name">B组</th>
+                        <th id="b-col-0"></th>
+                        <th id="b-col-1"></th>
+                        <th id="b-col-2"></th>
+                        <th id="b-col-3"></th>
+                        <th id="b-col-4"></th>
+                        <th class="stats-col">积分</th>
+                        <th class="stats-col">净胜球</th>
+                    </tr>
+                </thead>
+                <tbody id="bodyB"></tbody>
+            </table>
+        </div>
+
+        <div class="buttons">
+            <button class="btn-calc" onclick="calculateStandings()">📊 计算积分</button>
+            <button class="btn-view" onclick="viewDisplay()">👁️ 查看展示页面</button>
+            <button class="btn-clear" onclick="clearAll()">🗑️ 清空数据</button>
+        </div>
+    </div>
+
+    <script>
+        const groupATeams = ['同方知网', '东升博展', '派出所', '智芯公司', '二十集团', '绺脚石FC'];
+        const groupBTeams = ['鼎震八方', '天下无敌', '安那络', '中国银行', '启行昆仑'];
+
+        let matchDataA = {};
+        let matchDataB = {};
+
+        function initTable(group, teams) {
+            const tableId = group === 'A' ? 'tableA' : 'tableB';
+            const bodyId = group === 'A' ? 'bodyA' : 'bodyB';
+            const matchData = group === 'A' ? matchDataA : matchDataB;
+
+            // 设置列标题
+            teams.forEach((team, i) => {
+                document.getElementById(`${group.toLowerCase()}-col-${i}`).textContent = team;
+            });
+
+            // 生成行
+            const tbody = document.getElementById(bodyId);
+            tbody.innerHTML = teams.map((rowTeam, rowIdx) => {
+                return `
+                    <tr>
+                        <td class="team-name">${rowTeam}</td>
+                        ${teams.map((colTeam, colIdx) => {
+                            if (rowIdx === colIdx) {
+                                return '<td class="disabled-cell">-</td>';
+                            }
+                            const key = `${rowIdx}-${colIdx}`;
+                            const value = matchData[key] || '';
+                            return `<td><input type="text" class="score-input"
+                                    data-group="${group}"
+                                    data-row="${rowIdx}"
+                                    data-col="${colIdx}"
+                                    value="${value}"
+                                    placeholder="如: 3比0"></td>`;
+                        }).join('')}
+                        <td class="stats-col" id="${group}-points-${rowIdx}">0</td>
+                        <td class="stats-col" id="${group}-diff-${rowIdx}">0</td>
+                    </tr>
+                `;
+            }).join('');
+
+            // 绑定输入事件
+            tbody.querySelectorAll('.score-input').forEach(input => {
+                input.addEventListener('input', function() {
+                    const group = this.dataset.group;
+                    const key = `${this.dataset.row}-${this.dataset.col}`;
+                    if (group === 'A') {
+                        matchDataA[key] = this.value;
+                    } else {
+                        matchDataB[key] = this.value;
+                    }
+                    saveData();
+                });
+            });
+        }
+
+        function parseScore(scoreStr) {
+            if (!scoreStr) return null;
+            const match = scoreStr.match(/(\d+)\s*比\s*(\d+)/);
+            if (match) {
+                return {
+                    home: parseInt(match[1]),
+                    away: parseInt(match[2])
+                };
+            }
+            return null;
+        }
+
+        function calculateStandings() {
+            calculateGroup('A', groupATeams, matchDataA);
+            calculateGroup('B', groupBTeams, matchDataB);
+
+            // 保存完整数据到localStorage供展示页面使用
+            saveToDisplay();
+
+            alert('✅ 积分计算完成！可以查看展示页面。');
+        }
+
+        function calculateGroup(group, teams, matchData) {
+            const stats = teams.map(() => ({
+                played: 0,
+                won: 0,
+                drawn: 0,
+                lost: 0,
+                goalsFor: 0,
+                goalsAgainst: 0,
+                points: 0
+            }));
+
+            // 遍历所有比赛
+            Object.keys(matchData).forEach(key => {
+                const [rowIdx, colIdx] = key.split('-').map(Number);
+                const score = parseScore(matchData[key]);
+
+                if (score) {
+                    const homeGoals = score.home;
+                    const awayGoals = score.away;
+
+                    stats[rowIdx].played++;
+                    stats[colIdx].played++;
+                    stats[rowIdx].goalsFor += homeGoals;
+                    stats[rowIdx].goalsAgainst += awayGoals;
+                    stats[colIdx].goalsFor += awayGoals;
+                    stats[colIdx].goalsAgainst += homeGoals;
+
+                    if (homeGoals > awayGoals) {
+                        stats[rowIdx].won++;
+                        stats[rowIdx].points += 3;
+                        stats[colIdx].lost++;
+                    } else if (homeGoals < awayGoals) {
+                        stats[colIdx].won++;
+                        stats[colIdx].points += 3;
+                        stats[rowIdx].lost++;
+                    } else {
+                        stats[rowIdx].drawn++;
+                        stats[colIdx].drawn++;
+                        stats[rowIdx].points += 1;
+                        stats[colIdx].points += 1;
+                    }
+                }
+            });
+
+            // 更新显示
+            stats.forEach((stat, idx) => {
+                const diff = stat.goalsFor - stat.goalsAgainst;
+                document.getElementById(`${group}-points-${idx}`).textContent = stat.points;
+                document.getElementById(`${group}-diff-${idx}`).textContent =
+                    diff > 0 ? `+${diff}` : diff;
+            });
+
+            return stats;
+        }
+
+        function saveToDisplay() {
+            const statsA = calculateGroup('A', groupATeams, matchDataA);
+            const statsB = calculateGroup('B', groupBTeams, matchDataB);
+
+            const teamsData = {};
+
+            groupATeams.forEach((name, idx) => {
+                teamsData[name] = {
+                    name: name,
+                    group: 'A',
+                    ...statsA[idx]
+                };
+            });
+
+            groupBTeams.forEach((name, idx) => {
+                teamsData[name] = {
+                    name: name,
+                    group: 'B',
+                    ...statsB[idx]
+                };
+            });
+
+            localStorage.setItem('footballStandings', JSON.stringify(teamsData));
+            localStorage.setItem('footballGroupA', JSON.stringify(groupATeams));
+            localStorage.setItem('footballGroupB', JSON.stringify(groupBTeams));
+        }
+
+        function saveData() {
+            localStorage.setItem('matchDataA', JSON.stringify(matchDataA));
+            localStorage.setItem('matchDataB', JSON.stringify(matchDataB));
+        }
+
+        function loadData() {
+            const savedA = localStorage.getItem('matchDataA');
+            const savedB = localStorage.getItem('matchDataB');
+
+            if (savedA) matchDataA = JSON.parse(savedA);
+            if (savedB) matchDataB = JSON.parse(savedB);
+        }
+
+        function clearAll() {
+            if (confirm('确定要清空所有数据吗？此操作不可恢复！')) {
+                matchDataA = {};
+                matchDataB = {};
+                localStorage.removeItem('matchDataA');
+                localStorage.removeItem('matchDataB');
+                localStorage.removeItem('footballStandings');
+                localStorage.removeItem('footballGroupA');
+                localStorage.removeItem('footballGroupB');
+
+                initTable('A', groupATeams);
+                initTable('B', groupBTeams);
+
+                alert('✅ 数据已清空');
+            }
+        }
+
+        function viewDisplay() {
+            window.open('display.html', '_blank');
+        }
+
+        // 初始化
+        window.onload = function() {
+            loadData();
+            initTable('A', groupATeams);
+            initTable('B', groupBTeams);
+
+            // 如果有数据，自动计算一次
+            if (Object.keys(matchDataA).length > 0 || Object.keys(matchDataB).length > 0) {
+                calculateStandings();
+            }
+        };
+    </script>
+</body>
+</html>
