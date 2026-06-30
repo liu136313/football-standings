@@ -329,9 +329,32 @@
                 };
             });
 
+            // 保存对战明细
+            const matchesA = extractMatches('A', groupATeams, matchDataA);
+            const matchesB = extractMatches('B', groupBTeams, matchDataB);
+
             localStorage.setItem('footballStandings', JSON.stringify(teamsData));
             localStorage.setItem('footballGroupA', JSON.stringify(groupATeams));
             localStorage.setItem('footballGroupB', JSON.stringify(groupBTeams));
+            localStorage.setItem('footballMatchesA', JSON.stringify(matchesA));
+            localStorage.setItem('footballMatchesB', JSON.stringify(matchesB));
+        }
+
+        function extractMatches(group, teams, matchData) {
+            const matches = [];
+            Object.keys(matchData).forEach(key => {
+                const [rowIdx, colIdx] = key.split('-').map(Number);
+                const score = parseScore(matchData[key]);
+                if (score) {
+                    matches.push({
+                        home: teams[rowIdx],
+                        away: teams[colIdx],
+                        homeScore: score.home,
+                        awayScore: score.away
+                    });
+                }
+            });
+            return matches;
         }
 
         function saveData() {
