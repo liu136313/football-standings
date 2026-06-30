@@ -1,16 +1,16 @@
 {
-  "updateTime": "2026-06-30T04:30:18.010Z",
+  "updateTime": "2026-06-30T04:32:24.491Z",
   "teams": {
     "同方知网": {
       "name": "同方知网",
       "group": "A",
-      "played": 1,
-      "won": 1,
+      "played": 2,
+      "won": 2,
       "drawn": 0,
       "lost": 0,
-      "goalsFor": 4,
+      "goalsFor": 12,
       "goalsAgainst": 0,
-      "points": 3
+      "points": 6
     },
     "东升博展": {
       "name": "东升博展",
@@ -48,12 +48,12 @@
     "二十集团": {
       "name": "二十集团",
       "group": "A",
-      "played": 0,
+      "played": 1,
       "won": 0,
       "drawn": 0,
-      "lost": 0,
+      "lost": 1,
       "goalsFor": 0,
-      "goalsAgainst": 0,
+      "goalsAgainst": 8,
       "points": 0
     },
     "绺脚石FC": {
@@ -143,6 +143,12 @@
       "home": "同方知网",
       "away": "智芯公司",
       "homeScore": 4,
+      "awayScore": 0
+    },
+    {
+      "home": "同方知网",
+      "away": "二十集团",
+      "homeScore": 8,
       "awayScore": 0
     }
   ],
