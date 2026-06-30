@@ -195,16 +195,16 @@
         <div class="github-config">
             <details>
                 <summary style="cursor: pointer; color: #1976d2; font-weight: bold; padding: 10px 0;">
-                    ⚙️ GitHub Token 配置（点击展开）
+                    ⚙️ GitHub 输入配置（点击展开）
                 </summary>
                 <div style="margin-top: 10px;">
-                    <input type="password" id="githubToken" placeholder="GitHub Personal Access Token"
+                    <input type="password" id="githubToken" placeholder="请输入 GitHub Personal Access Token"
                            value="" onchange="saveGithubConfig()" style="width: 100%; padding: 8px; margin: 5px 0;">
                     <input type="text" id="githubRepo" placeholder="仓库名（如：liu136313/football-standings）"
                            value="liu136313/football-standings" onchange="saveGithubConfig()" style="width: 100%; padding: 8px; margin: 5px 0;">
                     <small style="color: #666;">
-                        如果上传失败，请检查 Token 是否有效。
-                        <a href="https://github.com/settings/tokens" target="_blank" style="color: #1976d2;">管理 Token</a>
+                        如果上传失败，请检查输入是否有效。
+                        <a href="https://github.com/settings/tokens" target="_blank" style="color: #1976d2;">管理输入</a>
                     </small>
                     <div id="githubStatus" class="status-message"></div>
                 </div>
@@ -609,14 +609,13 @@
             let repo = localStorage.getItem('githubRepo');
 
             // 如果没有，使用默认值
-            if (!token) {
-                token = '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';
-            }
             if (!repo) {
                 repo = 'liu136313/football-standings';
             }
 
-            document.getElementById('githubToken').value = token;
+            if (token) {
+                document.getElementById('githubToken').value = token;
+            }
             document.getElementById('githubRepo').value = repo;
         }
 
@@ -638,7 +637,7 @@
             const repo = document.getElementById('githubRepo').value.trim();
 
             if (!token) {
-                showStatus('❌ 请先配置 GitHub Token', 'error');
+                showStatus('❌ 请先配置 GitHub 输入', 'error');
                 return;
             }
 
@@ -734,13 +733,13 @@
 
                     let alertMsg = `❌ 上传失败：${errorMsg}`;
                     if (errorMsg.includes('Bad credentials')) {
-                        alertMsg += '\n\n可能原因：\n1. Token 已过期或被撤销\n2. Token 权限不足\n\n请展开页面顶部的"GitHub Token 配置"更新 Token。';
+                        alertMsg += '\n\n可能原因：\n1. 输入已过期或被撤销\n2. 输入权限不足\n\n请展开页面顶部的"GitHub 输入配置"更新输入。';
                     }
                     alert(alertMsg);
                 }
             } catch (error) {
                 showStatus(`❌ 上传失败：${error.message}`, 'error');
-                alert(`❌ 上传失败：${error.message}\n\n请检查网络连接或 Token 配置。`);
+                alert(`❌ 上传失败：${error.message}\n\n请检查网络连接或输入配置。`);
             }
         }
 
