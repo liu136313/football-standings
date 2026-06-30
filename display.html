@@ -315,13 +315,12 @@
                     matchesA = data.matchesA || [];
                     matchesB = data.matchesB || [];
 
-                    // 保存更新时间
-                    if (data.updateTime) {
-                        localStorage.setItem('dataUpdateTime', data.updateTime);
-                    }
-
                     console.log('从 data.json 加载数据成功');
-                    return Object.keys(teams).length > 0;
+                    // 直接返回更新时间
+                    return {
+                        hasData: Object.keys(teams).length > 0,
+                        updateTime: data.updateTime || null
+                    };
                 }
             } catch (e) {
                 console.log('data.json 不存在，尝试从 localStorage 加载');
@@ -353,7 +352,10 @@
                 matchesB = JSON.parse(savedMatchesB);
             }
 
-            return Object.keys(teams).length > 0;
+            return {
+                hasData: Object.keys(teams).length > 0,
+                updateTime: null
+            };
         }
 
         function sortTeams(teamsList) {
@@ -432,7 +434,7 @@
         }
 
         async function updateTable() {
-            await loadData();
+            const result = await loadData();
 
             // 更新总榜
             const allTeams = Object.values(teams);
@@ -448,16 +450,12 @@
             renderTable(document.getElementById('standingsGroupB'), groupBTeams, 'emptyStateGroupB');
             renderMatches(document.getElementById('matchesGroupB'), matchesB);
 
-            // 更新时间（从数据中读取上传时间）
-            if (teams && Object.keys(teams).length > 0) {
-                // 尝试从 data.json 获取更新时间
-                const updateTimeStr = localStorage.getItem('dataUpdateTime');
-                if (updateTimeStr) {
-                    const updateDate = new Date(updateTimeStr);
-                    document.getElementById('updateTime').textContent = updateDate.toLocaleString('zh-CN');
-                } else {
-                    document.getElementById('updateTime').textContent = '未知';
-                }
+            // 更新时间（直接使用从 data.json 获取的最新时间）
+            if (result.hasData && result.updateTime) {
+                const updateDate = new Date(result.updateTime);
+                document.getElementById('updateTime').textContent = updateDate.toLocaleString('zh-CN');
+            } else if (result.hasData) {
+                document.getElementById('updateTime').textContent = '未知';
             }
         }
 
