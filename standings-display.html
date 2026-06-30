@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>足球积分榜 - 大屏展示</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 36px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        .header-info {
+            text-align: center;
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 18px;
+        }
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        th {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+            transition: background-color 0.3s;
+        }
+        .rank {
+            font-weight: bold;
+            font-size: 20px;
+        }
+        .rank-1 {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: white;
+        }
+        .rank-2 {
+            background: linear-gradient(135deg, #C0C0C0 0%, #A9A9A9 100%);
+            color: white;
+        }
+        .rank-3 {
+            background: linear-gradient(135deg, #CD7F32 0%, #8B4513 100%);
+            color: white;
+        }
+        .team-name {
+            font-weight: bold;
+            text-align: left;
+            padding-left: 20px;
+        }
+        .points {
+            font-weight: bold;
+            font-size: 22px;
+            color: #4CAF50;
+        }
+        .positive { color: #4CAF50; }
+        .negative { color: #f44336; }
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+        .empty-state h2 {
+            margin-bottom: 10px;
+        }
+        .refresh-info {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚽ 足球比赛积分榜</h1>
+        <div class="header-info">
+            最后更新：<span id="updateTime">--</span> | 自动刷新：每3秒
+        </div>
+
+        <table id="standingsTable">
+            <thead>
+                <tr>
+                    <th style="width: 80px;">排名</th>
+                    <th style="text-align: left; padding-left: 20px;">球队</th>
+                    <th>赛</th>
+                    <th>胜</th>
+                    <th>平</th>
+                    <th>负</th>
+                    <th>进球</th>
+                    <th>失球</th>
+                    <th>净胜球</th>
+                    <th style="width: 100px;">积分</th>
+                </tr>
+            </thead>
+            <tbody id="standings"></tbody>
+        </table>
+
+        <div id="emptyState" class="empty-state" style="display:none;">
+            <h2>📊 暂无数据</h2>
+            <p>请在录入页面添加比赛结果</p>
+        </div>
+    </div>
+
+    <div class="refresh-info">
+        🔄 自动刷新中
+    </div>
+
+    <script>
+        let teams = {};
+
+        function loadData() {
+            const saved = localStorage.getItem('footballStandings');
+            if (saved) {
+                teams = JSON.parse(saved);
+            }
+            return Object.keys(teams).length > 0;
+        }
+
+        function updateTable() {
+            const hasData = loadData();
+            const tbody = document.getElementById('standings');
+            const emptyState = document.getElementById('emptyState');
+            const table = document.getElementById('standingsTable');
+
+            if (!hasData) {
+                table.style.display = 'none';
+                emptyState.style.display = 'block';
+                return;
+            }
+
+            table.style.display = 'table';
+            emptyState.style.display = 'none';
+
+            const sorted = Object.values(teams).sort((a, b) => {
+                if (b.points !== a.points) return b.points - a.points;
+                const diffA = a.goalsFor - a.goalsAgainst;
+                const diffB = b.goalsFor - b.goalsAgainst;
+                if (diffB !== diffA) return diffB - diffA;
+                return b.goalsFor - a.goalsFor;
+            });
+
+            tbody.innerHTML = sorted.map((team, index) => {
+                const goalDiff = team.goalsFor - team.goalsAgainst;
+                const rank = index + 1;
+                let rankClass = '';
+                if (rank === 1) rankClass = 'rank-1';
+                else if (rank === 2) rankClass = 'rank-2';
+                else if (rank === 3) rankClass = 'rank-3';
+
+                const diffColor = goalDiff > 0 ? 'positive' : (goalDiff < 0 ? 'negative' : '');
+
+                return `
+                    <tr>
+                        <td class="rank ${rankClass}">${rank}</td>
+                        <td class="team-name">${team.name}</td>
+                        <td>${team.played}</td>
+                        <td>${team.won}</td>
+                        <td>${team.drawn}</td>
+                        <td>${team.lost}</td>
+                        <td>${team.goalsFor}</td>
+                        <td>${team.goalsAgainst}</td>
+                        <td class="${diffColor}">${goalDiff > 0 ? '+' : ''}${goalDiff}</td>
+                        <td class="points">${team.points}</td>
+                    </tr>
+                `;
+            }).join('');
+
+            // 更新时间
+            const now = new Date();
+            document.getElementById('updateTime').textContent =
+                now.toLocaleTimeString('zh-CN');
+        }
+
+        // 页面加载时更新
+        updateTable();
+
+        // 每3秒自动刷新
+        setInterval(updateTable, 3000);
+
+        // 监听 localStorage 变化（当在其他标签页修改数据时）
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'footballStandings') {
+                updateTable();
+            }
+        });
+    </script>
+</body>
+</html>
