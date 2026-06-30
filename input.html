@@ -108,6 +108,77 @@
         .btn-clear:hover {
             background: #da190b;
         }
+        .btn-export {
+            background: #FF9800;
+            color: white;
+        }
+        .btn-export:hover {
+            background: #F57C00;
+        }
+        .export-info {
+            background: #fff3e0;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            color: #e65100;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .export-info strong {
+            color: #bf360c;
+        }
+        .github-config {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .github-config h3 {
+            margin: 0 0 10px 0;
+            color: #1976d2;
+            font-size: 18px;
+        }
+        .github-config input {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #90caf9;
+            border-radius: 4px;
+        }
+        .github-config small {
+            color: #1565c0;
+            display: block;
+            margin-top: 5px;
+        }
+        .github-config a {
+            color: #1976d2;
+            font-weight: bold;
+        }
+        .btn-github {
+            background: #24292e;
+            color: white;
+        }
+        .btn-github:hover {
+            background: #000;
+        }
+        .status-message {
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            display: none;
+        }
+        .status-success {
+            background: #c8e6c9;
+            color: #2e7d32;
+        }
+        .status-error {
+            background: #ffcdd2;
+            color: #c62828;
+        }
+        .status-loading {
+            background: #fff9c4;
+            color: #f57f17;
+        }
         .instruction {
             background: #e3f2fd;
             padding: 15px;
@@ -120,6 +191,15 @@
 <body>
     <div class="container">
         <h1>⚽ 2026i友运动嘉年华足球联赛积分榜 - 矩阵录入</h1>
+
+        <div class="github-config" style="display:none;">
+            <h3>⚙️ GitHub 配置</h3>
+            <input type="text" id="githubToken" placeholder="GitHub Personal Access Token"
+                   value="" onchange="saveGithubConfig()">
+            <input type="text" id="githubRepo" placeholder="仓库名（如：liu136313/football-standings）"
+                   value="liu136313/football-standings" onchange="saveGithubConfig()">
+            <div id="githubStatus" class="status-message"></div>
+        </div>
 
         <div class="instruction">
             💡 <strong>使用说明：</strong>在交叉格中输入比赛结果，格式如"3比0"或"1比1"，表示行队伍 vs 列队伍的比分。填完后点击"计算积分"。
@@ -167,6 +247,7 @@
         </div>
 
         <div class="buttons">
+            <button class="btn-github" onclick="uploadToGithub()">🚀 上传数据</button>
             <button class="btn-calc" onclick="calculateStandings()">📊 计算积分</button>
             <button class="btn-view" onclick="viewDisplay()">👁️ 查看展示页面</button>
             <button class="btn-clear" onclick="clearAll()">🗑️ 清空数据</button>
@@ -179,6 +260,37 @@
 
         let matchDataA = {};
         let matchDataB = {};
+
+        // 默认填充数据（从截图中提取）
+        const defaultMatchDataA = {
+            '0-3': '0比1',  // 同方知网 vs 智芯公司
+            '0-4': '3比1',  // 同方知网 vs 二十集团
+            '0-5': '1比4',  // 同方知网 vs 绺脚石FC
+            '1-2': '3比0',  // 东升博展 vs 派出所
+            '1-4': '0比2',  // 东升博展 vs 二十集团
+            '2-1': '0比3',  // 派出所 vs 东升博展
+            '2-3': '2比5',  // 派出所 vs 智芯公司
+            '2-4': '0比3',  // 派出所 vs 二十集团
+            '3-0': '1比0',  // 智芯公司 vs 同方知网
+            '3-2': '5比2',  // 智芯公司 vs 派出所
+            '3-5': '1比1',  // 智芯公司 vs 绺脚石FC
+            '4-0': '1比3',  // 二十集团 vs 同方知网
+            '4-1': '2比0',  // 二十集团 vs 东升博展
+            '4-2': '3比0',  // 二十集团 vs 派出所
+            '5-0': '4比1',  // 绺脚石FC vs 同方知网
+            '5-3': '1比1',  // 绺脚石FC vs 智芯公司
+        };
+
+        const defaultMatchDataB = {
+            '0-4': '1比3',  // 鼎震八方 vs 启行昆仑
+            '1-2': '3比3',  // 天下无敌 vs 安那络
+            '1-4': '2比8',  // 天下无敌 vs 启行昆仑
+            '2-1': '3比3',  // 安那络 vs 天下无敌
+            '2-3': '2比2',  // 安那络 vs 中国银行
+            '3-2': '2比2',  // 中国银行 vs 安那络
+            '4-0': '3比1',  // 启行昆仑 vs 鼎震八方
+            '4-1': '8比2',  // 启行昆仑 vs 天下无敌
+        };
 
         function initTable(group, teams) {
             const tableId = group === 'A' ? 'tableA' : 'tableB';
@@ -387,8 +499,19 @@
             const savedA = localStorage.getItem('matchDataA');
             const savedB = localStorage.getItem('matchDataB');
 
-            if (savedA) matchDataA = JSON.parse(savedA);
-            if (savedB) matchDataB = JSON.parse(savedB);
+            if (savedA) {
+                matchDataA = JSON.parse(savedA);
+            } else {
+                // 如果没有保存的数据，使用默认数据
+                matchDataA = { ...defaultMatchDataA };
+            }
+
+            if (savedB) {
+                matchDataB = JSON.parse(savedB);
+            } else {
+                // 如果没有保存的数据，使用默认数据
+                matchDataB = { ...defaultMatchDataB };
+            }
         }
 
         function clearAll() {
@@ -400,11 +523,199 @@
                 localStorage.removeItem('footballStandings');
                 localStorage.removeItem('footballGroupA');
                 localStorage.removeItem('footballGroupB');
+                localStorage.removeItem('footballMatchesA');
+                localStorage.removeItem('footballMatchesB');
 
                 initTable('A', groupATeams);
                 initTable('B', groupBTeams);
 
                 alert('✅ 数据已清空');
+            }
+        }
+
+        function exportToJson() {
+            // 确保已计算积分
+            const statsA = calculateGroup('A', groupATeams, matchDataA);
+            const statsB = calculateGroup('B', groupBTeams, matchDataB);
+
+            const teamsData = {};
+
+            groupATeams.forEach((name, idx) => {
+                teamsData[name] = {
+                    name: name,
+                    group: 'A',
+                    ...statsA[idx]
+                };
+            });
+
+            groupBTeams.forEach((name, idx) => {
+                teamsData[name] = {
+                    name: name,
+                    group: 'B',
+                    ...statsB[idx]
+                };
+            });
+
+            const matchesA = extractMatches('A', groupATeams, matchDataA);
+            const matchesB = extractMatches('B', groupBTeams, matchDataB);
+
+            const exportData = {
+                updateTime: new Date().toISOString(),
+                teams: teamsData,
+                groupA: groupATeams,
+                groupB: groupBTeams,
+                matchesA: matchesA,
+                matchesB: matchesB
+            };
+
+            // 下载 JSON 文件
+            const dataStr = JSON.stringify(exportData, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'data.json';
+            a.click();
+            URL.revokeObjectURL(url);
+
+            alert('✅ data.json 已导出到本地！');
+        }
+
+        function saveGithubConfig() {
+            const token = document.getElementById('githubToken').value.trim();
+            const repo = document.getElementById('githubRepo').value.trim();
+
+            if (token) {
+                localStorage.setItem('githubToken', token);
+            }
+            if (repo) {
+                localStorage.setItem('githubRepo', repo);
+            }
+        }
+
+        function loadGithubConfig() {
+            // Token 写死在代码中
+            const token = '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';
+            const repo = 'liu136313/football-standings';
+
+            document.getElementById('githubToken').value = token;
+            document.getElementById('githubRepo').value = repo;
+        }
+
+        function showStatus(message, type) {
+            const statusDiv = document.getElementById('githubStatus');
+            statusDiv.textContent = message;
+            statusDiv.className = `status-message status-${type}`;
+            statusDiv.style.display = 'block';
+
+            if (type !== 'loading') {
+                setTimeout(() => {
+                    statusDiv.style.display = 'none';
+                }, 5000);
+            }
+        }
+
+        async function uploadToGithub() {
+            const token = document.getElementById('githubToken').value.trim();
+            const repo = document.getElementById('githubRepo').value.trim();
+
+            if (!token) {
+                showStatus('❌ 请先配置 GitHub Token', 'error');
+                return;
+            }
+
+            if (!repo) {
+                showStatus('❌ 请输入仓库名称', 'error');
+                return;
+            }
+
+            showStatus('⏳ 正在上传到 GitHub...', 'loading');
+
+            try {
+                // 生成数据
+                const statsA = calculateGroup('A', groupATeams, matchDataA);
+                const statsB = calculateGroup('B', groupBTeams, matchDataB);
+
+                const teamsData = {};
+                groupATeams.forEach((name, idx) => {
+                    teamsData[name] = {
+                        name: name,
+                        group: 'A',
+                        ...statsA[idx]
+                    };
+                });
+
+                groupBTeams.forEach((name, idx) => {
+                    teamsData[name] = {
+                        name: name,
+                        group: 'B',
+                        ...statsB[idx]
+                    };
+                });
+
+                const matchesA = extractMatches('A', groupATeams, matchDataA);
+                const matchesB = extractMatches('B', groupBTeams, matchDataB);
+
+                const exportData = {
+                    updateTime: new Date().toISOString(),
+                    teams: teamsData,
+                    groupA: groupATeams,
+                    groupB: groupBTeams,
+                    matchesA: matchesA,
+                    matchesB: matchesB
+                };
+
+                const content = JSON.stringify(exportData, null, 2);
+                const contentBase64 = btoa(unescape(encodeURIComponent(content)));
+
+                // 先获取文件的 SHA（如果文件已存在）
+                let sha = null;
+                try {
+                    const getResponse = await fetch(`https://api.github.com/repos/${repo}/contents/data.json`, {
+                        headers: {
+                            'Authorization': `token ${token}`,
+                            'Accept': 'application/vnd.github.v3+json'
+                        }
+                    });
+                    if (getResponse.ok) {
+                        const data = await getResponse.json();
+                        sha = data.sha;
+                    }
+                } catch (e) {
+                    // 文件不存在，这是正常的
+                }
+
+                // 上传文件
+                const payload = {
+                    message: `更新比赛数据 ${new Date().toLocaleString('zh-CN')}`,
+                    content: contentBase64,
+                    branch: 'main'
+                };
+
+                if (sha) {
+                    payload.sha = sha;
+                }
+
+                const response = await fetch(`https://api.github.com/repos/${repo}/contents/data.json`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    showStatus('✅ 上传成功！数据已更新到 GitHub', 'success');
+                    alert('✅ 上传成功！\n\n数据已更新到 GitHub，展示页面将自动刷新显示最新数据。');
+                } else {
+                    const error = await response.json();
+                    showStatus(`❌ 上传失败：${error.message}`, 'error');
+                    alert(`❌ 上传失败：${error.message}`);
+                }
+            } catch (error) {
+                showStatus(`❌ 上传失败：${error.message}`, 'error');
             }
         }
 
@@ -415,6 +726,7 @@
         // 初始化
         window.onload = function() {
             loadData();
+            loadGithubConfig();
             initTable('A', groupATeams);
             initTable('B', groupBTeams);
 
