@@ -1,5 +1,5 @@
 {
-  "updateTime": "2026-06-30T09:30:36.636Z",
+  "updateTime": "2026-06-30T11:41:47.230Z",
   "teams": {
     "同方知网": {
       "name": "同方知网",
@@ -70,12 +70,12 @@
     "鼎震八方": {
       "name": "鼎震八方",
       "group": "B",
-      "played": 1,
+      "played": 2,
       "won": 0,
       "drawn": 0,
-      "lost": 1,
-      "goalsFor": 1,
-      "goalsAgainst": 3,
+      "lost": 2,
+      "goalsFor": 4,
+      "goalsAgainst": 8,
       "points": 0
     },
     "天下无敌": {
@@ -103,13 +103,13 @@
     "中国银行": {
       "name": "中国银行",
       "group": "B",
-      "played": 1,
-      "won": 0,
+      "played": 2,
+      "won": 1,
       "drawn": 1,
       "lost": 0,
-      "goalsFor": 2,
-      "goalsAgainst": 2,
-      "points": 1
+      "goalsFor": 7,
+      "goalsAgainst": 5,
+      "points": 4
     },
     "启行昆仑": {
       "name": "启行昆仑",
@@ -212,6 +212,12 @@
       "away": "中国银行",
       "homeScore": 2,
       "awayScore": 2
+    },
+    {
+      "home": "鼎震八方",
+      "away": "中国银行",
+      "homeScore": 3,
+      "awayScore": 5
     }
   ]
 }
