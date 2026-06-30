@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>批量导入比赛数据</title>
+</head>
+<body>
+    <h2>正在导入数据...</h2>
+    <div id="status"></div>
+
+    <script>
+        // 第一组比赛数据
+        const group1Matches = [
+            { home: '同方知网', away: '智芯公司', homeScore: 0, awayScore: 1 },
+            { home: '同方知网', away: '二十集团', homeScore: 3, awayScore: 1 },
+            { home: '同方知网', away: '绊脚石FC', homeScore: 1, awayScore: 4 },
+            { home: '东升博展', away: '派出所', homeScore: 3, awayScore: 0 },
+            { home: '东升博展', away: '二十集团', homeScore: 0, awayScore: 2 },
+            { home: '派出所', away: '东升博展', homeScore: 0, awayScore: 3 },
+            { home: '派出所', away: '智芯公司', homeScore: 2, awayScore: 5 },
+            { home: '派出所', away: '二十集团', homeScore: 0, awayScore: 3 },
+            { home: '智芯公司', away: '同方知网', homeScore: 1, awayScore: 0 },
+            { home: '智芯公司', away: '派出所', homeScore: 5, awayScore: 2 },
+            { home: '智芯公司', away: '绊脚石FC', homeScore: 1, awayScore: 1 },
+            { home: '二十集团', away: '同方知网', homeScore: 1, awayScore: 3 },
+            { home: '二十集团', away: '东升博展', homeScore: 2, awayScore: 0 },
+            { home: '二十集团', away: '派出所', homeScore: 3, awayScore: 0 },
+            { home: '绊脚石FC', away: '同方知网', homeScore: 4, awayScore: 1 },
+            { home: '绊脚石FC', away: '智芯公司', homeScore: 1, awayScore: 1 }
+        ];
+
+        // 第二组比赛数据
+        const group2Matches = [
+            { home: '鼎震八方', away: '启行昆仑', homeScore: 1, awayScore: 3 },
+            { home: '天下无敌', away: '安那络', homeScore: 3, awayScore: 3 },
+            { home: '天下无敌', away: '启行昆仑', homeScore: 2, awayScore: 8 },
+            { home: '安那络', away: '天下无敌', homeScore: 3, awayScore: 3 },
+            { home: '安那络', away: '中国银行', homeScore: 2, awayScore: 2 },
+            { home: '中国银行', away: '安那络', homeScore: 2, awayScore: 2 },
+            { home: '启行昆仑', away: '鼎震八方', homeScore: 3, awayScore: 1 },
+            { home: '启行昆仑', away: '天下无敌', homeScore: 8, awayScore: 2 }
+        ];
+
+        const allMatches = [...group1Matches, ...group2Matches];
+
+        // 初始化数据结构
+        let teams = {};
+
+        function getTeam(name) {
+            if (!teams[name]) {
+                teams[name] = {
+                    name: name,
+                    played: 0,
+                    won: 0,
+                    drawn: 0,
+                    lost: 0,
+                    goalsFor: 0,
+                    goalsAgainst: 0,
+                    points: 0
+                };
+            }
+            return teams[name];
+        }
+
+        function addMatch(match) {
+            const home = getTeam(match.home);
+            const away = getTeam(match.away);
+
+            home.played++;
+            away.played++;
+            home.goalsFor += match.homeScore;
+            home.goalsAgainst += match.awayScore;
+            away.goalsFor += match.awayScore;
+            away.goalsAgainst += match.homeScore;
+
+            if (match.homeScore > match.awayScore) {
+                home.won++;
+                home.points += 3;
+                away.lost++;
+            } else if (match.homeScore < match.awayScore) {
+                away.won++;
+                away.points += 3;
+                home.lost++;
+            } else {
+                home.drawn++;
+                away.drawn++;
+                home.points += 1;
+                away.points += 1;
+            }
+        }
+
+        // 处理所有比赛
+        allMatches.forEach(match => addMatch(match));
+
+        // 保存到 localStorage
+        localStorage.setItem('footballStandings', JSON.stringify(teams));
+
+        // 显示结果
+        const statusDiv = document.getElementById('status');
+        statusDiv.innerHTML = `
+            <h3>✅ 导入完成！</h3>
+            <p>已成功导入 ${allMatches.length} 场比赛数据</p>
+            <p>共 ${Object.keys(teams).length} 支球队</p>
+            <br>
+            <p><a href="standings-input.html">前往录入页面</a></p>
+            <p><a href="standings-display.html">前往展示页面</a></p>
+        `;
+
+        // 2秒后自动跳转到展示页面
+        setTimeout(() => {
+            window.location.href = 'standings-display.html';
+        }, 2000);
+    </script>
+</body>
+</html>
