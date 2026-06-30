@@ -129,6 +129,69 @@
             border-radius: 5px;
             font-size: 12px;
         }
+
+        .matches-section {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 2px dashed #e0e0e0;
+        }
+
+        .matches-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .match-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 12px;
+        }
+
+        .match-item {
+            background: #f9f9f9;
+            padding: 12px;
+            border-radius: 5px;
+            border-left: 4px solid #4CAF50;
+            font-size: 14px;
+        }
+
+        .group-a .match-item {
+            border-left-color: #2196F3;
+        }
+
+        .group-b .match-item {
+            border-left-color: #FF5722;
+        }
+
+        .match-teams {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .match-team {
+            flex: 1;
+            text-align: center;
+        }
+
+        .match-team.winner {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        .match-score {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            padding: 0 10px;
+        }
+
+        .match-vs {
+            color: #999;
+            font-size: 12px;
+        }
     </style>
 </head>
 <body>
@@ -167,7 +230,7 @@
         </div>
 
         <!-- A组 -->
-        <div class="section">
+        <div class="section group-a">
             <div class="section-title group-a">🅰️ A组积分榜</div>
             <table class="group-a">
                 <thead>
@@ -190,10 +253,15 @@
                 <h3>📊 暂无数据</h3>
                 <p>请在录入页面添加A组比赛结果</p>
             </div>
+
+            <div class="matches-section">
+                <div class="matches-title">📋 对战明细</div>
+                <div class="match-list" id="matchesGroupA"></div>
+            </div>
         </div>
 
         <!-- B组 -->
-        <div class="section">
+        <div class="section group-b">
             <div class="section-title group-b">🅱️ B组积分榜</div>
             <table class="group-b">
                 <thead>
@@ -216,6 +284,11 @@
                 <h3>📊 暂无数据</h3>
                 <p>请在录入页面添加B组比赛结果</p>
             </div>
+
+            <div class="matches-section">
+                <div class="matches-title">📋 对战明细</div>
+                <div class="match-list" id="matchesGroupB"></div>
+            </div>
         </div>
     </div>
 
@@ -227,6 +300,8 @@
         let teams = {};
         let groupA = [];
         let groupB = [];
+        let matchesA = [];
+        let matchesB = [];
 
         function loadData() {
             const saved = localStorage.getItem('footballStandings');
@@ -242,6 +317,16 @@
             const savedGroupB = localStorage.getItem('footballGroupB');
             if (savedGroupB) {
                 groupB = JSON.parse(savedGroupB);
+            }
+
+            const savedMatchesA = localStorage.getItem('footballMatchesA');
+            if (savedMatchesA) {
+                matchesA = JSON.parse(savedMatchesA);
+            }
+
+            const savedMatchesB = localStorage.getItem('footballMatchesB');
+            if (savedMatchesB) {
+                matchesB = JSON.parse(savedMatchesB);
             }
 
             return Object.keys(teams).length > 0;
@@ -299,6 +384,29 @@
             }).join('');
         }
 
+        function renderMatches(container, matches) {
+            if (matches.length === 0) {
+                container.innerHTML = '<div style="text-align: center; color: #999; padding: 20px;">暂无比赛记录</div>';
+                return;
+            }
+
+            container.innerHTML = matches.map(match => {
+                const homeWin = match.homeScore > match.awayScore;
+                const awayWin = match.awayScore > match.homeScore;
+                const draw = match.homeScore === match.awayScore;
+
+                return `
+                    <div class="match-item">
+                        <div class="match-teams">
+                            <div class="match-team ${homeWin ? 'winner' : ''}">${match.home}</div>
+                            <div class="match-score">${match.homeScore} : ${match.awayScore}</div>
+                            <div class="match-team ${awayWin ? 'winner' : ''}">${match.away}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
         function updateTable() {
             loadData();
 
@@ -309,10 +417,12 @@
             // 更新A组
             const groupATeams = allTeams.filter(team => groupA.includes(team.name));
             renderTable(document.getElementById('standingsGroupA'), groupATeams, 'emptyStateGroupA');
+            renderMatches(document.getElementById('matchesGroupA'), matchesA);
 
             // 更新B组
             const groupBTeams = allTeams.filter(team => groupB.includes(team.name));
             renderTable(document.getElementById('standingsGroupB'), groupBTeams, 'emptyStateGroupB');
+            renderMatches(document.getElementById('matchesGroupB'), matchesB);
 
             // 更新时间
             const now = new Date();
@@ -327,7 +437,9 @@
 
         // 监听 localStorage 变化
         window.addEventListener('storage', function(e) {
-            if (e.key === 'footballStandings' || e.key === 'footballGroupA' || e.key === 'footballGroupB') {
+            if (e.key === 'footballStandings' || e.key === 'footballGroupA' ||
+                e.key === 'footballGroupB' || e.key === 'footballMatchesA' ||
+                e.key === 'footballMatchesB') {
                 updateTable();
             }
         });
