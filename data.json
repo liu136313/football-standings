@@ -1,5 +1,5 @@
 {
-  "updateTime": "2026-07-01T13:57:35.382Z",
+  "updateTime": "2026-07-01T14:05:32.107Z",
   "teams": {
     "同方知网": {
       "name": "同方知网",
@@ -372,16 +372,6 @@
       "venue": "球场A"
     },
     {
-      "home": "鼎震八方",
-      "away": "天下无敌",
-      "homeScore": null,
-      "awayScore": null,
-      "hasScore": false,
-      "date": "2026-07-06",
-      "time": "18:40-19:40",
-      "venue": "球场A"
-    },
-    {
       "home": "启行昆仑",
       "away": "中国银行",
       "homeScore": null,
@@ -389,6 +379,16 @@
       "hasScore": false,
       "date": "2026-07-07",
       "time": "19:50-20:50",
+      "venue": "球场A"
+    },
+    {
+      "home": "鼎震八方",
+      "away": "天下无敌",
+      "homeScore": null,
+      "awayScore": null,
+      "hasScore": false,
+      "date": "2026-07-08",
+      "time": "18:40-19:40",
       "venue": "球场A"
     }
   ]
