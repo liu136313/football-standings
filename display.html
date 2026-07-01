@@ -470,28 +470,10 @@
                 const awayWin = hasScore && match.awayScore > match.homeScore;
                 const draw = hasScore && match.homeScore === match.awayScore;
 
-                // 判断是否已完赛（基于日期或是否有比分）
+                // 判断是否已完赛（优先看比分，有比分就是已完赛）
                 let isFinished = hasScore;
-                let statusClass = 'finished';
-                let statusText = '已完赛';
-
-                if (match.date) {
-                    const matchDate = new Date(match.date);
-                    matchDate.setHours(0, 0, 0, 0);
-
-                    if (matchDate >= today) {
-                        isFinished = false;
-                        statusClass = 'upcoming';
-                        statusText = '未完赛';
-                    }
-                }
-
-                // 如果没有比分，默认为未完赛
-                if (!hasScore) {
-                    isFinished = false;
-                    statusClass = 'upcoming';
-                    statusText = '未完赛';
-                }
+                let statusClass = hasScore ? 'finished' : 'upcoming';
+                let statusText = hasScore ? '已完赛' : '未完赛';
 
                 // 格式化日期
                 let dateStr = '待定';
