@@ -474,29 +474,126 @@
             localStorage.setItem('footballMatchesB', JSON.stringify(matchesB));
         }
 
+        // 赛程数据（从图片中提取）
+        const scheduleData = {
+            // A组赛程
+            'A': {
+                '东升博展-二十中教育集团': { date: '2026-06-22', time: '18:40-19:40', venue: '球场A' },
+                '同方知网-绺脚石FC': { date: '2026-06-22', time: '19:50-20:50', venue: '球场A' },
+                '派出所-智芯公司': { date: '2026-06-24', time: '18:40-19:40', venue: '球场A' },
+                '同方知网-二十中教育集团': { date: '2026-06-24', time: '19:50-20:50', venue: '球场A' },
+                '绺脚石FC-智芯公司': { date: '2026-06-26', time: '18:40-19:40', venue: '球场A' },
+                '东升博展-派出所': { date: '2026-06-26', time: '19:50-20:50', venue: '球场A' },
+                '同方知网-智芯公司': { date: '2026-06-29', time: '18:40-19:40', venue: '球场A' },
+                '二十中教育集团-派出所': { date: '2026-06-29', time: '19:50-20:50', venue: '球场A' },
+                '绺脚石FC-东升博展': { date: '2026-07-01', time: '18:40-19:40', venue: '球场A' },
+                '同方知网-派出所': { date: '2026-07-01', time: '19:50-20:50', venue: '球场A' },
+                '智芯公司-东升博展': { date: '2026-07-03', time: '18:40-19:40', venue: '球场A' },
+                '二十中教育集团-绺脚石FC': { date: '2026-07-03', time: '19:50-20:50', venue: '球场A' },
+            },
+            // B组赛程
+            'B': {
+                '天下无敌-启行昆仑': { date: '2026-06-23', time: '18:40-19:40', venue: '球场A' },
+                '安那络-中国银行': { date: '2026-06-23', time: '19:50-20:50', venue: '球场A' },
+                '鼎震八方-启行昆仑': { date: '2026-06-25', time: '18:40-19:40', venue: '球场A' },
+                '天下无敌-安那络': { date: '2026-06-25', time: '19:50-20:50', venue: '球场A' },
+                '鼎震八方-中国银行': { date: '2026-06-30', time: '18:40-19:40', venue: '球场A' },
+                '启行昆仑-安那络': { date: '2026-06-30', time: '19:50-20:50', venue: '球场A' },
+                '鼎震八方-安那络': { date: '2026-07-02', time: '18:40-19:40', venue: '球场A' },
+                '中国银行-天下无敌': { date: '2026-07-02', time: '19:50-20:50', venue: '球场A' },
+            }
+        };
+
         function extractMatches(group, teams, matchData) {
             const matches = [];
             const processed = new Set();
+            const schedule = scheduleData[group] || {};
 
+            // 先从赛程表中提取所有比赛（包括未完赛的）
+            Object.keys(schedule).forEach(matchKey => {
+                const [home, away] = matchKey.split('-');
+                const scheduleInfo = schedule[matchKey];
+
+                // 查找是否有比分记录
+                const homeIdx = teams.indexOf(home);
+                const awayIdx = teams.indexOf(away);
+
+                let homeScore = null;
+                let awayScore = null;
+                let hasScore = false;
+
+                if (homeIdx !== -1 && awayIdx !== -1) {
+                    // 检查正向比赛
+                    const key1 = `${homeIdx}-${awayIdx}`;
+                    const key2 = `${awayIdx}-${homeIdx}`;
+
+                    let score = parseScore(matchData[key1]);
+                    if (score) {
+                        homeScore = score.home;
+                        awayScore = score.away;
+                        hasScore = true;
+                    } else {
+                        score = parseScore(matchData[key2]);
+                        if (score) {
+                            homeScore = score.away;
+                            awayScore = score.home;
+                            hasScore = true;
+                        }
+                    }
+                }
+
+                matches.push({
+                    home: home,
+                    away: away,
+                    homeScore: homeScore,
+                    awayScore: awayScore,
+                    hasScore: hasScore,
+                    date: scheduleInfo.date,
+                    time: scheduleInfo.time,
+                    venue: scheduleInfo.venue
+                });
+            });
+
+            // 添加那些有比分但不在赛程表中的比赛（如果有的话）
             Object.keys(matchData).forEach(key => {
                 const [rowIdx, colIdx] = key.split('-').map(Number);
                 const score = parseScore(matchData[key]);
 
                 if (score) {
-                    // 避免重复添加同一场比赛
-                    const matchId = rowIdx < colIdx ? `${rowIdx}-${colIdx}` : `${colIdx}-${rowIdx}`;
+                    const home = teams[rowIdx];
+                    const away = teams[colIdx];
+                    const matchKey = `${home}-${away}`;
+                    const reverseKey = `${away}-${home}`;
 
-                    if (!processed.has(matchId)) {
-                        processed.add(matchId);
-                        matches.push({
-                            home: teams[rowIdx],
-                            away: teams[colIdx],
-                            homeScore: score.home,
-                            awayScore: score.away
-                        });
+                    // 如果这场比赛不在赛程表中，添加它
+                    if (!schedule[matchKey] && !schedule[reverseKey]) {
+                        const matchId = rowIdx < colIdx ? `${rowIdx}-${colIdx}` : `${colIdx}-${rowIdx}`;
+
+                        if (!processed.has(matchId)) {
+                            processed.add(matchId);
+                            matches.push({
+                                home: home,
+                                away: away,
+                                homeScore: score.home,
+                                awayScore: score.away,
+                                hasScore: true,
+                                date: null,
+                                time: null,
+                                venue: '待定'
+                            });
+                        }
                     }
                 }
             });
+
+            // 按日期和时间排序
+            matches.sort((a, b) => {
+                if (!a.date || !b.date) return 0;
+                if (a.date !== b.date) return a.date.localeCompare(b.date);
+                if (!a.time || !b.time) return 0;
+                return a.time.localeCompare(b.time);
+            });
+
             return matches;
         }
 
