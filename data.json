@@ -1,16 +1,16 @@
 {
-  "updateTime": "2026-07-01T11:03:16.126Z",
+  "updateTime": "2026-07-01T11:06:06.941Z",
   "teams": {
     "同方知网": {
       "name": "同方知网",
       "group": "A",
-      "played": 3,
-      "won": 1,
+      "played": 4,
+      "won": 2,
       "drawn": 0,
       "lost": 2,
-      "goalsFor": 4,
+      "goalsFor": 7,
       "goalsAgainst": 6,
-      "points": 3
+      "points": 6
     },
     "东升博展": {
       "name": "东升博展",
@@ -26,12 +26,12 @@
     "派出所": {
       "name": "派出所",
       "group": "A",
-      "played": 3,
+      "played": 4,
       "won": 0,
       "drawn": 0,
-      "lost": 3,
+      "lost": 4,
       "goalsFor": 2,
-      "goalsAgainst": 11,
+      "goalsAgainst": 14,
       "points": 0
     },
     "智芯公司": {
@@ -192,6 +192,12 @@
       "away": "绺脚石FC",
       "homeScore": 1,
       "awayScore": 1
+    },
+    {
+      "home": "同方知网",
+      "away": "派出所",
+      "homeScore": 3,
+      "awayScore": 0
     }
   ],
   "matchesB": [
