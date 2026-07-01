@@ -1,5 +1,5 @@
 {
-  "updateTime": "2026-07-01T13:35:36.020Z",
+  "updateTime": "2026-07-01T13:43:49.754Z",
   "teams": {
     "同方知网": {
       "name": "同方知网",
@@ -200,6 +200,16 @@
       "venue": "球场A"
     },
     {
+      "home": "东升博展",
+      "away": "绊脚石FC",
+      "homeScore": 2,
+      "awayScore": 3,
+      "hasScore": true,
+      "date": "2026-06-28",
+      "time": "18:40-19:40",
+      "venue": "球场A"
+    },
+    {
       "home": "同方知网",
       "away": "智芯公司",
       "homeScore": 0,
@@ -237,6 +247,26 @@
       "hasScore": true,
       "date": "2026-07-01",
       "time": "19:50-20:50",
+      "venue": "球场A"
+    },
+    {
+      "home": "同方知网",
+      "away": "东升博展",
+      "homeScore": null,
+      "awayScore": null,
+      "hasScore": false,
+      "date": "2026-06-25",
+      "time": "18:40-19:40",
+      "venue": "球场A"
+    },
+    {
+      "home": "智芯公司",
+      "away": "二十中教育集团",
+      "homeScore": null,
+      "awayScore": null,
+      "hasScore": false,
+      "date": "2026-06-27",
+      "time": "18:40-19:40",
       "venue": "球场A"
     },
     {
