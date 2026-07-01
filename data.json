@@ -1,5 +1,5 @@
 {
-  "updateTime": "2026-07-01T12:16:52.214Z",
+  "updateTime": "2026-07-01T13:07:56.395Z",
   "teams": {
     "同方知网": {
       "name": "同方知网",
@@ -140,102 +140,236 @@
   ],
   "matchesA": [
     {
-      "home": "同方知网",
-      "away": "智芯公司",
-      "homeScore": 0,
-      "awayScore": 1
-    },
-    {
-      "home": "同方知网",
-      "away": "二十集团",
-      "homeScore": 3,
-      "awayScore": 1
+      "home": "东升博展",
+      "away": "二十中教育集团",
+      "homeScore": null,
+      "awayScore": null,
+      "hasScore": false,
+      "date": "2026-06-22",
+      "time": "18:40-19:40",
+      "venue": "球场A"
     },
     {
       "home": "同方知网",
       "away": "绺脚石FC",
       "homeScore": 1,
-      "awayScore": 4
-    },
-    {
-      "home": "东升博展",
-      "away": "派出所",
-      "homeScore": 3,
-      "awayScore": 0
-    },
-    {
-      "home": "东升博展",
-      "away": "二十集团",
-      "homeScore": 0,
-      "awayScore": 2
+      "awayScore": 4,
+      "hasScore": true,
+      "date": "2026-06-22",
+      "time": "19:50-20:50",
+      "venue": "球场A"
     },
     {
       "home": "派出所",
       "away": "智芯公司",
       "homeScore": 2,
-      "awayScore": 5
+      "awayScore": 5,
+      "hasScore": true,
+      "date": "2026-06-24",
+      "time": "18:40-19:40",
+      "venue": "球场A"
     },
     {
-      "home": "派出所",
-      "away": "二十集团",
+      "home": "同方知网",
+      "away": "二十中教育集团",
+      "homeScore": null,
+      "awayScore": null,
+      "hasScore": false,
+      "date": "2026-06-24",
+      "time": "19:50-20:50",
+      "venue": "球场A"
+    },
+    {
+      "home": "绺脚石FC",
+      "away": "智芯公司",
+      "homeScore": 1,
+      "awayScore": 1,
+      "hasScore": true,
+      "date": "2026-06-26",
+      "time": "18:40-19:40",
+      "venue": "球场A"
+    },
+    {
+      "home": "东升博展",
+      "away": "派出所",
+      "homeScore": 3,
+      "awayScore": 0,
+      "hasScore": true,
+      "date": "2026-06-26",
+      "time": "19:50-20:50",
+      "venue": "球场A"
+    },
+    {
+      "home": "同方知网",
+      "away": "智芯公司",
       "homeScore": 0,
-      "awayScore": 3
+      "awayScore": 1,
+      "hasScore": true,
+      "date": "2026-06-29",
+      "time": "18:40-19:40",
+      "venue": "球场A"
+    },
+    {
+      "home": "二十中教育集团",
+      "away": "派出所",
+      "homeScore": null,
+      "awayScore": null,
+      "hasScore": false,
+      "date": "2026-06-29",
+      "time": "19:50-20:50",
+      "venue": "球场A"
+    },
+    {
+      "home": "绺脚石FC",
+      "away": "东升博展",
+      "homeScore": 3,
+      "awayScore": 2,
+      "hasScore": true,
+      "date": "2026-07-01",
+      "time": "18:40-19:40",
+      "venue": "球场A"
+    },
+    {
+      "home": "同方知网",
+      "away": "派出所",
+      "homeScore": 3,
+      "awayScore": 0,
+      "hasScore": true,
+      "date": "2026-07-01",
+      "time": "19:50-20:50",
+      "venue": "球场A"
     },
     {
       "home": "智芯公司",
-      "away": "绺脚石FC",
-      "homeScore": 1,
-      "awayScore": 1
+      "away": "东升博展",
+      "homeScore": null,
+      "awayScore": null,
+      "hasScore": false,
+      "date": "2026-07-03",
+      "time": "18:40-19:40",
+      "venue": "球场A"
     },
     {
-      "home": "东升博展",
+      "home": "二十中教育集团",
       "away": "绺脚石FC",
-      "homeScore": 2,
-      "awayScore": 3
+      "homeScore": null,
+      "awayScore": null,
+      "hasScore": false,
+      "date": "2026-07-03",
+      "time": "19:50-20:50",
+      "venue": "球场A"
     },
     {
       "home": "同方知网",
-      "away": "派出所",
+      "away": "二十集团",
       "homeScore": 3,
-      "awayScore": 0
+      "awayScore": 1,
+      "hasScore": true,
+      "date": null,
+      "time": null,
+      "venue": "待定"
+    },
+    {
+      "home": "东升博展",
+      "away": "二十集团",
+      "homeScore": 0,
+      "awayScore": 2,
+      "hasScore": true,
+      "date": null,
+      "time": null,
+      "venue": "待定"
+    },
+    {
+      "home": "派出所",
+      "away": "二十集团",
+      "homeScore": 0,
+      "awayScore": 3,
+      "hasScore": true,
+      "date": null,
+      "time": null,
+      "venue": "待定"
     }
   ],
   "matchesB": [
     {
-      "home": "鼎震八方",
-      "away": "启行昆仑",
-      "homeScore": 1,
-      "awayScore": 3
-    },
-    {
       "home": "天下无敌",
       "away": "启行昆仑",
       "homeScore": 2,
-      "awayScore": 8
-    },
-    {
-      "home": "天下无敌",
-      "away": "安那络",
-      "homeScore": 3,
-      "awayScore": 3
+      "awayScore": 8,
+      "hasScore": true,
+      "date": "2026-06-23",
+      "time": "18:40-19:40",
+      "venue": "球场A"
     },
     {
       "home": "安那络",
       "away": "中国银行",
       "homeScore": 2,
-      "awayScore": 2
+      "awayScore": 2,
+      "hasScore": true,
+      "date": "2026-06-23",
+      "time": "19:50-20:50",
+      "venue": "球场A"
+    },
+    {
+      "home": "鼎震八方",
+      "away": "启行昆仑",
+      "homeScore": 1,
+      "awayScore": 3,
+      "hasScore": true,
+      "date": "2026-06-25",
+      "time": "18:40-19:40",
+      "venue": "球场A"
+    },
+    {
+      "home": "天下无敌",
+      "away": "安那络",
+      "homeScore": 3,
+      "awayScore": 3,
+      "hasScore": true,
+      "date": "2026-06-25",
+      "time": "19:50-20:50",
+      "venue": "球场A"
     },
     {
       "home": "鼎震八方",
       "away": "中国银行",
       "homeScore": 3,
-      "awayScore": 5
+      "awayScore": 5,
+      "hasScore": true,
+      "date": "2026-06-30",
+      "time": "18:40-19:40",
+      "venue": "球场A"
     },
     {
       "home": "启行昆仑",
       "away": "安那络",
       "homeScore": 1,
-      "awayScore": 4
+      "awayScore": 4,
+      "hasScore": true,
+      "date": "2026-06-30",
+      "time": "19:50-20:50",
+      "venue": "球场A"
+    },
+    {
+      "home": "鼎震八方",
+      "away": "安那络",
+      "homeScore": null,
+      "awayScore": null,
+      "hasScore": false,
+      "date": "2026-07-02",
+      "time": "18:40-19:40",
+      "venue": "球场A"
+    },
+    {
+      "home": "中国银行",
+      "away": "天下无敌",
+      "homeScore": null,
+      "awayScore": null,
+      "hasScore": false,
+      "date": "2026-07-02",
+      "time": "19:50-20:50",
+      "venue": "球场A"
     }
   ]
 }
