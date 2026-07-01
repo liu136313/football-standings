@@ -192,6 +192,49 @@
             color: #999;
             font-size: 12px;
         }
+
+        .match-vs-text {
+            color: #999;
+            font-size: 14px;
+            font-weight: normal;
+        }
+
+        .match-info {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+            padding-top: 5px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .match-date {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .match-status {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+
+        .match-status.finished {
+            background: #c8e6c9;
+            color: #2e7d32;
+        }
+
+        .match-status.upcoming {
+            background: #fff9c4;
+            color: #f57f17;
+        }
+
+        .match-item.upcoming {
+            opacity: 0.7;
+            border-left-style: dashed;
+        }
     </style>
 </head>
 <body>
@@ -416,17 +459,67 @@
                 return;
             }
 
+            const today = new Date('2026-07-01');
+            today.setHours(0, 0, 0, 0);
+
             container.innerHTML = matches.map(match => {
-                const homeWin = match.homeScore > match.awayScore;
-                const awayWin = match.awayScore > match.homeScore;
-                const draw = match.homeScore === match.awayScore;
+                // 判断是否有比分
+                const hasScore = match.hasScore !== false && match.homeScore !== null && match.awayScore !== null;
+
+                const homeWin = hasScore && match.homeScore > match.awayScore;
+                const awayWin = hasScore && match.awayScore > match.homeScore;
+                const draw = hasScore && match.homeScore === match.awayScore;
+
+                // 判断是否已完赛（基于日期或是否有比分）
+                let isFinished = hasScore;
+                let statusClass = 'finished';
+                let statusText = '已完赛';
+
+                if (match.date) {
+                    const matchDate = new Date(match.date);
+                    matchDate.setHours(0, 0, 0, 0);
+
+                    if (matchDate >= today) {
+                        isFinished = false;
+                        statusClass = 'upcoming';
+                        statusText = '未完赛';
+                    }
+                }
+
+                // 如果没有比分，默认为未完赛
+                if (!hasScore) {
+                    isFinished = false;
+                    statusClass = 'upcoming';
+                    statusText = '未完赛';
+                }
+
+                // 格式化日期
+                let dateStr = '待定';
+                if (match.date) {
+                    const d = new Date(match.date);
+                    const month = d.getMonth() + 1;
+                    const day = d.getDate();
+                    const weekday = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'][d.getDay()];
+                    dateStr = `${month}月${day}日 ${weekday}`;
+                }
+
+                // 比分显示：如果没有比分，显示 VS
+                const scoreDisplay = hasScore
+                    ? `${match.homeScore} : ${match.awayScore}`
+                    : '<span class="match-vs-text">VS</span>';
 
                 return `
-                    <div class="match-item">
+                    <div class="match-item ${isFinished ? '' : 'upcoming'}">
                         <div class="match-teams">
                             <div class="match-team ${homeWin ? 'winner' : ''}">${match.home}</div>
-                            <div class="match-score">${match.homeScore} : ${match.awayScore}</div>
+                            <div class="match-score">${scoreDisplay}</div>
                             <div class="match-team ${awayWin ? 'winner' : ''}">${match.away}</div>
+                        </div>
+                        <div class="match-info">
+                            <span class="match-date">${dateStr}</span>
+                            <span style="margin: 0 5px;">•</span>
+                            <span>${match.time || '待定'}</span>
+                            <span class="match-status ${statusClass}">${statusText}</span>
                         </div>
                     </div>
                 `;
