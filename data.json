@@ -1,5 +1,5 @@
 {
-  "updateTime": "2026-07-01T14:41:37.525Z",
+  "updateTime": "2026-07-02T11:34:47.685Z",
   "teams": {
     "同方知网": {
       "name": "同方知网",
@@ -70,13 +70,13 @@
     "鼎震八方": {
       "name": "鼎震八方",
       "group": "B",
-      "played": 2,
-      "won": 0,
+      "played": 3,
+      "won": 1,
       "drawn": 0,
       "lost": 2,
-      "goalsFor": 4,
+      "goalsFor": 5,
       "goalsAgainst": 8,
-      "points": 0
+      "points": 3
     },
     "天下无敌": {
       "name": "天下无敌",
@@ -92,12 +92,12 @@
     "安那络": {
       "name": "安那络",
       "group": "B",
-      "played": 3,
+      "played": 4,
       "won": 1,
       "drawn": 2,
-      "lost": 0,
+      "lost": 1,
       "goalsFor": 9,
-      "goalsAgainst": 6,
+      "goalsAgainst": 7,
       "points": 5
     },
     "中国银行": {
@@ -354,9 +354,9 @@
     {
       "home": "鼎震八方",
       "away": "安那络",
-      "homeScore": null,
-      "awayScore": null,
-      "hasScore": false,
+      "homeScore": 1,
+      "awayScore": 0,
+      "hasScore": true,
       "date": "2026-07-02",
       "time": "18:40-19:40",
       "venue": "球场A"
