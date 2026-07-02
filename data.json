@@ -1,37 +1,37 @@
 {
-  "updateTime": "2026-07-02T11:34:47.685Z",
+  "updateTime": "2026-07-02T12:35:31.493Z",
   "teams": {
     "同方知网": {
       "name": "同方知网",
-      "group": "A",
-      "played": 4,
-      "won": 2,
-      "drawn": 0,
-      "lost": 2,
-      "goalsFor": 7,
-      "goalsAgainst": 6,
-      "points": 6
-    },
-    "东升博展": {
-      "name": "东升博展",
       "group": "A",
       "played": 3,
       "won": 1,
       "drawn": 0,
       "lost": 2,
-      "goalsFor": 5,
-      "goalsAgainst": 5,
+      "goalsFor": 4,
+      "goalsAgainst": 6,
+      "points": 3
+    },
+    "东升博展": {
+      "name": "东升博展",
+      "group": "A",
+      "played": 2,
+      "won": 1,
+      "drawn": 0,
+      "lost": 1,
+      "goalsFor": 3,
+      "goalsAgainst": 2,
       "points": 3
     },
     "派出所": {
       "name": "派出所",
       "group": "A",
-      "played": 4,
+      "played": 3,
       "won": 0,
       "drawn": 0,
-      "lost": 4,
+      "lost": 3,
       "goalsFor": 2,
-      "goalsAgainst": 14,
+      "goalsAgainst": 11,
       "points": 0
     },
     "智芯公司": {
@@ -59,67 +59,67 @@
     "绊脚石FC": {
       "name": "绊脚石FC",
       "group": "A",
-      "played": 3,
-      "won": 2,
+      "played": 2,
+      "won": 1,
       "drawn": 1,
       "lost": 0,
-      "goalsFor": 8,
-      "goalsAgainst": 4,
-      "points": 7
+      "goalsFor": 5,
+      "goalsAgainst": 2,
+      "points": 4
     },
     "鼎震八方": {
       "name": "鼎震八方",
       "group": "B",
-      "played": 3,
-      "won": 1,
+      "played": 1,
+      "won": 0,
       "drawn": 0,
-      "lost": 2,
-      "goalsFor": 5,
-      "goalsAgainst": 8,
-      "points": 3
+      "lost": 1,
+      "goalsFor": 1,
+      "goalsAgainst": 3,
+      "points": 0
     },
     "天下无敌": {
       "name": "天下无敌",
       "group": "B",
-      "played": 2,
+      "played": 3,
       "won": 0,
-      "drawn": 1,
+      "drawn": 2,
       "lost": 1,
-      "goalsFor": 5,
-      "goalsAgainst": 11,
-      "points": 1
+      "goalsFor": 8,
+      "goalsAgainst": 14,
+      "points": 2
     },
     "安那络": {
       "name": "安那络",
       "group": "B",
-      "played": 4,
-      "won": 1,
+      "played": 2,
+      "won": 0,
       "drawn": 2,
-      "lost": 1,
-      "goalsFor": 9,
-      "goalsAgainst": 7,
-      "points": 5
+      "lost": 0,
+      "goalsFor": 5,
+      "goalsAgainst": 5,
+      "points": 2
     },
     "中国银行": {
       "name": "中国银行",
       "group": "B",
       "played": 2,
-      "won": 1,
-      "drawn": 1,
+      "won": 0,
+      "drawn": 2,
       "lost": 0,
-      "goalsFor": 7,
+      "goalsFor": 5,
       "goalsAgainst": 5,
-      "points": 4
+      "points": 2
     },
     "启行昆仑": {
       "name": "启行昆仑",
       "group": "B",
-      "played": 3,
+      "played": 2,
       "won": 2,
       "drawn": 0,
-      "lost": 1,
-      "goalsFor": 12,
-      "goalsAgainst": 7,
+      "lost": 0,
+      "goalsFor": 11,
+      "goalsAgainst": 3,
       "points": 6
     }
   },
@@ -222,9 +222,9 @@
     {
       "home": "绊脚石FC",
       "away": "东升博展",
-      "homeScore": 3,
-      "awayScore": 2,
-      "hasScore": true,
+      "homeScore": null,
+      "awayScore": null,
+      "hasScore": false,
       "date": "2026-07-01",
       "time": "18:40-19:40",
       "venue": "球场A"
@@ -232,9 +232,9 @@
     {
       "home": "同方知网",
       "away": "派出所",
-      "homeScore": 3,
-      "awayScore": 0,
-      "hasScore": true,
+      "homeScore": null,
+      "awayScore": null,
+      "hasScore": false,
       "date": "2026-07-01",
       "time": "19:50-20:50",
       "venue": "球场A"
@@ -332,11 +332,21 @@
       "venue": "球场A"
     },
     {
+      "home": "中国银行",
+      "away": "天下无敌",
+      "homeScore": 3,
+      "awayScore": 3,
+      "hasScore": true,
+      "date": "2026-07-02",
+      "time": "19:50-20:50",
+      "venue": "球场A"
+    },
+    {
       "home": "鼎震八方",
       "away": "中国银行",
-      "homeScore": 3,
-      "awayScore": 5,
-      "hasScore": true,
+      "homeScore": null,
+      "awayScore": null,
+      "hasScore": false,
       "date": "2026-06-30",
       "time": "18:40-19:40",
       "venue": "球场A"
@@ -344,9 +354,9 @@
     {
       "home": "启行昆仑",
       "away": "安那络",
-      "homeScore": 1,
-      "awayScore": 4,
-      "hasScore": true,
+      "homeScore": null,
+      "awayScore": null,
+      "hasScore": false,
       "date": "2026-06-30",
       "time": "19:50-20:50",
       "venue": "球场A"
@@ -354,21 +364,11 @@
     {
       "home": "鼎震八方",
       "away": "安那络",
-      "homeScore": 1,
-      "awayScore": 0,
-      "hasScore": true,
-      "date": "2026-07-02",
-      "time": "18:40-19:40",
-      "venue": "球场A"
-    },
-    {
-      "home": "中国银行",
-      "away": "天下无敌",
       "homeScore": null,
       "awayScore": null,
       "hasScore": false,
       "date": "2026-07-02",
-      "time": "19:50-20:50",
+      "time": "18:40-19:40",
       "venue": "球场A"
     },
     {
