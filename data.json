@@ -1,5 +1,5 @@
 {
-  "updateTime": "2026-07-03T11:18:17.223Z",
+  "updateTime": "2026-07-03T11:51:47.302Z",
   "teams": {
     "同方知网": {
       "name": "同方知网",
@@ -16,12 +16,12 @@
       "name": "东升博展",
       "group": "A",
       "played": 4,
-      "won": 1,
-      "drawn": 1,
+      "won": 2,
+      "drawn": 0,
       "lost": 2,
       "goalsFor": 8,
-      "goalsAgainst": 8,
-      "points": 4
+      "goalsAgainst": 7,
+      "points": 6
     },
     "派出所": {
       "name": "派出所",
@@ -39,11 +39,11 @@
       "group": "A",
       "played": 4,
       "won": 2,
-      "drawn": 2,
-      "lost": 0,
-      "goalsFor": 10,
+      "drawn": 1,
+      "lost": 1,
+      "goalsFor": 9,
       "goalsAgainst": 6,
-      "points": 8
+      "points": 7
     },
     "二十中教育集团": {
       "name": "二十中教育集团",
@@ -242,7 +242,7 @@
     {
       "home": "智芯公司",
       "away": "东升博展",
-      "homeScore": 3,
+      "homeScore": 2,
       "awayScore": 3,
       "hasScore": true,
       "date": "2026-07-03",
