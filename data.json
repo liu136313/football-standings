@@ -1,5 +1,5 @@
 {
-  "updateTime": "2026-07-07T02:42:30.509Z",
+  "updateTime": "2026-07-07T11:30:33.823Z",
   "teams": {
     "同方知网": {
       "name": "同方知网",
@@ -37,23 +37,23 @@
     "智芯公司": {
       "name": "智芯公司",
       "group": "A",
-      "played": 4,
-      "won": 2,
+      "played": 5,
+      "won": 3,
       "drawn": 1,
       "lost": 1,
-      "goalsFor": 9,
-      "goalsAgainst": 6,
-      "points": 7
+      "goalsFor": 15,
+      "goalsAgainst": 8,
+      "points": 10
     },
     "二十中教育集团": {
       "name": "二十中教育集团",
       "group": "A",
-      "played": 3,
+      "played": 4,
       "won": 2,
       "drawn": 0,
-      "lost": 1,
-      "goalsFor": 6,
-      "goalsAgainst": 3,
+      "lost": 2,
+      "goalsFor": 8,
+      "goalsAgainst": 9,
       "points": 6
     },
     "绊脚石FC": {
@@ -260,32 +260,32 @@
       "venue": "球场A"
     },
     {
+      "home": "智芯公司",
+      "away": "二十中教育集团",
+      "homeScore": 6,
+      "awayScore": 2,
+      "hasScore": true,
+      "date": "2026-07-07",
+      "time": "18:40-19:40",
+      "venue": "球场A"
+    },
+    {
       "home": "二十中教育集团",
-      "away": "绊脚石FC",
+      "away": "绊脚石FC(补赛)",
       "homeScore": null,
       "awayScore": null,
       "hasScore": false,
-      "date": "2026-07-03",
+      "date": "2026-07-08",
       "time": "19:50-20:50",
       "venue": "球场A"
     },
     {
       "home": "同方知网",
-      "away": "东升博展",
+      "away": "东升博展(补赛)",
       "homeScore": null,
       "awayScore": null,
       "hasScore": false,
-      "date": "2026-07-06",
-      "time": "18:40-19:40",
-      "venue": "球场A"
-    },
-    {
-      "home": "智芯公司",
-      "away": "二十中教育集团",
-      "homeScore": null,
-      "awayScore": null,
-      "hasScore": false,
-      "date": "2026-07-07",
+      "date": "2026-07-09",
       "time": "18:40-19:40",
       "venue": "球场A"
     }
