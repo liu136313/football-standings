@@ -1,5 +1,5 @@
 {
-  "updateTime": "2026-07-03T11:51:47.302Z",
+  "updateTime": "2026-07-07T02:35:14.413Z",
   "teams": {
     "同方知网": {
       "name": "同方知网",
@@ -26,12 +26,12 @@
     "派出所": {
       "name": "派出所",
       "group": "A",
-      "played": 4,
+      "played": 5,
       "won": 0,
       "drawn": 0,
-      "lost": 4,
+      "lost": 5,
       "goalsFor": 2,
-      "goalsAgainst": 14,
+      "goalsAgainst": 17,
       "points": 0
     },
     "智芯公司": {
@@ -59,13 +59,13 @@
     "绊脚石FC": {
       "name": "绊脚石FC",
       "group": "A",
-      "played": 3,
-      "won": 2,
+      "played": 4,
+      "won": 3,
       "drawn": 1,
       "lost": 0,
-      "goalsFor": 8,
+      "goalsFor": 11,
       "goalsAgainst": 4,
-      "points": 7
+      "points": 10
     },
     "鼎震八方": {
       "name": "鼎震八方",
@@ -250,6 +250,16 @@
       "venue": "球场A"
     },
     {
+      "home": "派出所",
+      "away": "绊脚石FC",
+      "homeScore": 0,
+      "awayScore": 3,
+      "hasScore": true,
+      "date": "2026-07-06",
+      "time": "18:40-19:40",
+      "venue": "球场A"
+    },
+    {
       "home": "二十中教育集团",
       "away": "绊脚石FC",
       "homeScore": null,
@@ -262,16 +272,6 @@
     {
       "home": "同方知网",
       "away": "东升博展",
-      "homeScore": null,
-      "awayScore": null,
-      "hasScore": false,
-      "date": "2026-07-06",
-      "time": "18:40-19:40",
-      "venue": "球场A"
-    },
-    {
-      "home": "派出所",
-      "away": "绊脚石FC",
       "homeScore": null,
       "awayScore": null,
       "hasScore": false,
