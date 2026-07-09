@@ -1,26 +1,26 @@
 {
-  "updateTime": "2026-07-09T08:29:18.259Z",
+  "updateTime": "2026-07-09T14:35:29.758Z",
   "teams": {
     "同方知网": {
       "name": "同方知网",
       "group": "A",
-      "played": 4,
-      "won": 2,
+      "played": 5,
+      "won": 3,
       "drawn": 0,
       "lost": 2,
-      "goalsFor": 7,
+      "goalsFor": 10,
       "goalsAgainst": 6,
-      "points": 6
+      "points": 9
     },
     "东升博展": {
       "name": "东升博展",
       "group": "A",
-      "played": 4,
+      "played": 5,
       "won": 2,
       "drawn": 0,
-      "lost": 2,
+      "lost": 3,
       "goalsFor": 8,
-      "goalsAgainst": 7,
+      "goalsAgainst": 10,
       "points": 6
     },
     "派出所": {
@@ -282,9 +282,9 @@
     {
       "home": "同方知网",
       "away": "东升博展",
-      "homeScore": null,
-      "awayScore": null,
-      "hasScore": false,
+      "homeScore": 3,
+      "awayScore": 0,
+      "hasScore": true,
       "date": "2026-07-09",
       "time": "18:40-19:40",
       "venue": "球场A"
