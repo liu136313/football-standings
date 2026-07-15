@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>「三重过敏」宝宝辅食方案</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(135deg, #fff5f7 0%, #f0f8ff 100%);
+    color: #333;
+    line-height: 1.7;
+    padding: 20px;
+    min-height: 100vh;
+  }
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    overflow: hidden;
+  }
+  header {
+    background: linear-gradient(135deg, #ffb6c1 0%, #ffd8a8 100%);
+    padding: 40px 30px;
+    text-align: center;
+    color: #fff;
+  }
+  header h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  header .subtitle {
+    font-size: 15px;
+    opacity: 0.95;
+  }
+  main { padding: 30px; }
+  section { margin-bottom: 36px; }
+  h2 {
+    font-size: 20px;
+    color: #e67e22;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px dashed #ffd8a8;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  h2 .num {
+    background: #ff9999;
+    color: #fff;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: bold;
+  }
+  .core-box {
+    background: linear-gradient(135deg, #fff9e6 0%, #ffe4e1 100%);
+    border-left: 4px solid #ff9999;
+    padding: 18px 20px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+  }
+  .core-box strong { color: #c0392b; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  th {
+    background: linear-gradient(135deg, #ffb6c1 0%, #ffd8a8 100%);
+    color: #fff;
+    padding: 12px;
+    text-align: left;
+    font-size: 14px;
+  }
+  td {
+    padding: 12px;
+    border-bottom: 1px solid #f5f5f5;
+    font-size: 14px;
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover { background: #fffbf5; }
+  .stage-badge {
+    display: inline-block;
+    background: #ff9999;
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: bold;
+  }
+  .warning-list {
+    background: #fff5f5;
+    border-radius: 10px;
+    padding: 18px 22px;
+    border-left: 4px solid #ff6b6b;
+  }
+  .warning-list li {
+    list-style: none;
+    padding: 6px 0;
+    padding-left: 24px;
+    position: relative;
+    font-size: 14px;
+  }
+  .warning-list li::before {
+    content: "🚫";
+    position: absolute;
+    left: 0;
+  }
+  .brand-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 14px;
+    margin-top: 10px;
+  }
+  .brand-card {
+    background: linear-gradient(135deg, #f0f8ff 0%, #fff5f7 100%);
+    border-radius: 12px;
+    padding: 16px 18px;
+    border: 1px solid #ffe4e1;
+    transition: transform 0.2s;
+  }
+  .brand-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(255,182,193,0.3);
+  }
+  .brand-card h3 {
+    color: #e67e22;
+    font-size: 15px;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px dashed #ffd8a8;
+  }
+  .brand-card p { font-size: 13px; color: #666; }
+  .highlight {
+    background: linear-gradient(180deg, transparent 60%, #fff9c4 60%);
+    padding: 0 2px;
+    font-weight: bold;
+    color: #d35400;
+  }
+  .bottom-line {
+    background: linear-gradient(135deg, #e0f7fa 0%, #f0f8ff 100%);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-top: 16px;
+  }
+  .bottom-line li {
+    list-style: none;
+    padding: 6px 0;
+    padding-left: 24px;
+    position: relative;
+    font-size: 14px;
+  }
+  .bottom-line li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #26a69a;
+    font-weight: bold;
+  }
+  .next-step {
+    background: linear-gradient(135deg, #ffe4e1 0%, #fff9e6 100%);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    font-size: 15px;
+    color: #c0392b;
+    margin-top: 20px;
+  }
+  footer {
+    text-align: center;
+    padding: 20px;
+    background: #fafafa;
+    color: #999;
+    font-size: 12px;
+  }
+  @media (max-width: 600px) {
+    body { padding: 10px; }
+    main { padding: 20px 15px; }
+    header { padding: 30px 20px; }
+    header h1 { font-size: 22px; }
+    table { font-size: 12px; }
+    th, td { padding: 8px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>🌸 「三重过敏」宝宝辅食方案</h1>
+  <div class="subtitle">牛奶蛋白 · 乳糖 · 麸质 三重回避 | 5月龄起步指南</div>
+</header>
+
+<main>
+
+<section>
+  <h2><span class="num">1</span>核心原则</h2>
+  <div class="core-box">
+    <p><strong>回避三大过敏原</strong>：牛奶蛋白、乳糖、麸质（小麦/大麦/黑麦）</p>
+    <p><strong>遵循医嘱</strong>：从蔬菜起步，单一食材、少量试探、<span class="highlight">每样观察3天</span></p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">2</span>三阶段推进路线</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>阶段</th>
+        <th>月龄</th>
+        <th>核心食物</th>
+        <th>关键点</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="stage-badge">第1阶段</span></td>
+        <td>5~5.5月</td>
+        <td>单一蔬菜泥</td>
+        <td>南瓜、胡萝卜、西葫芦、西兰花、菠菜（焯水）。温水或氨基酸奶粉调稀，<strong>禁用面粉增稠</strong></td>
+      </tr>
+      <tr>
+        <td><span class="stage-badge">第2阶段</span></td>
+        <td>约5.5月</td>
+        <td>加入纯红肉泥</td>
+        <td>猪里脊、鸡胸肉打成细糊，指甲盖大小起步。<strong>最安全的补铁来源</strong></td>
+      </tr>
+      <tr>
+        <td><span class="stage-badge">第3阶段</span></td>
+        <td>约6月</td>
+        <td>无麸质主食</td>
+        <td>认证"无麸质"的纯大米粉、小米粉、玉米粉</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2><span class="num">3</span>必须避开的"隐形雷区"</h2>
+  <ul class="warning-list">
+    <li>普通婴儿米粉（可能含小麦淀粉）</li>
+    <li>成品肉泥/菜泥（可能用面粉增稠）</li>
+    <li>酱油（含小麦）</li>
+    <li>配料表出现「小麦粉/谷朊粉/麦芽糖浆」的任何产品</li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="num">4</span>异常信号观察表</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>症状</th>
+        <th>提示过敏原</th>
+        <th>行动</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>大便酸臭/泡沫</td>
+        <td>乳糖不耐受</td>
+        <td>继续回避</td>
+      </tr>
+      <tr>
+        <td>稀水样/大量奶瓣</td>
+        <td>牛奶蛋白/麸质</td>
+        <td>立即停食</td>
+      </tr>
+      <tr>
+        <td>严重腹泻/黏液便</td>
+        <td>麸质过敏</td>
+        <td>就医</td>
+      </tr>
+      <tr>
+        <td>体重增长缓慢</td>
+        <td>能量不足</td>
+        <td>菜泥中加 2-3 滴核桃油/亚麻籽油</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2><span class="num">5</span>品牌选择速查</h2>
+
+  <h3 style="font-size:15px; color:#e67e22; margin:14px 0 8px;">🍼 强化铁米粉</h3>
+  <div class="brand-grid">
+    <div class="brand-card"><h3>婴享 Genieten</h3><p>独立无麸质产线，有机小米米粉，含钙铁锌6种营养素</p></div>
+    <div class="brand-card"><h3>敏小芽</h3><p>低敏加铁米粉，宣称不含12大过敏原，添加抗敏益生菌</p></div>
+    <div class="brand-card"><h3>爱思贝 EARTH'S BEST</h3><p>有机大米粉，低敏无麸质，敏感体质反馈良好</p></div>
+    <div class="brand-card"><h3>纽康特米萃</h3><p>专为过敏宝宝研发的低敏米粉</p></div>
+    <div class="brand-card"><h3>息乐佳</h3><p>氨基酸营养米粉，生产线控制严格</p></div>
+    <div class="brand-card"><h3>谷之爱</h3><p>婴幼儿小米粉，明确不含麸质</p></div>
+    <div class="brand-card"><h3>喜宝 HiPP</h3><p>不含乳成分，对牛奶蛋白过敏宝宝友好</p></div>
+    <div class="brand-card"><h3>嘉宝 Gerber</h3><p>纯大米米粉，部分产品线无麸质（需核对包装）</p></div>
+  </div>
+
+  <h3 style="font-size:15px; color:#e67e22; margin:20px 0 8px;">🍜 面条/主食</h3>
+  <div class="brand-grid">
+    <div class="brand-card"><h3>婴享无小麦面条</h3><p>小米、大米、玉米面条 + 粒粒面</p></div>
+    <div class="brand-card"><h3>谷品新约</h3><p>100%纯粳稻无麸质面条，国际认证</p></div>
+    <div class="brand-card"><h3>心迪妈妈</h3><p>迪敏系列：无麸质、0蛋0奶</p></div>
+    <div class="brand-card"><h3>敏小芽碎碎面</h3><p>无麸质配方</p></div>
+  </div>
+
+  <h3 style="font-size:15px; color:#e67e22; margin:20px 0 8px;">🍬 零食</h3>
+  <div class="brand-grid">
+    <div class="brand-card"><h3>未零 Beazero</h3><p>纯水果溶豆，无蛋奶低敏配方</p></div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">6</span>安全底线</h2>
+  <ul class="bottom-line">
+    <li>5月龄辅食是"尝味期"，<strong>奶（氨基酸/深度水解配方）仍是营养主力</strong></li>
+    <li>一天1次、每次几口即可，不求量、只求稳</li>
+    <li>每引入一样，观察满3天再上下一样</li>
+    <li>所有产品<strong>先给医生看配料表照片</strong>再开喂</li>
+    <li>自制辅食比成品更安全，建议<strong>专锅专用</strong>，防面粉飘散污染</li>
+  </ul>
+</section>
+
+<div class="next-step">
+  💡 <strong>下一步建议</strong><br>
+  先备一款有"无麸质认证"的纯大米粉或小米粉作为第3阶段储备<br>
+  同时准备好蒸锅 + 破壁机专用于宝宝辅食
+</div>
+
+</main>
+
+<footer>
+  🌷 温馨提示：本方案仅供参考，具体喂养请遵医嘱
+</footer>
+
+</div>
+</body>
+</html>
